@@ -169,6 +169,8 @@
         transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     }
     
+    
+    
     #pricing {
         padding: 100px;
        
@@ -209,8 +211,8 @@
         padding-right: 65px;
     }
     
-    .container{
-        margin-left: 750px;
+    .popupwindow{
+      text-align: center;
     }
     
        
