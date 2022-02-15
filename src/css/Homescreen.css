@@ -99,6 +99,34 @@
   padding:10;
 }
 
+/* Widget */
+.btn-success {
+  margin: 8px;
+  transform: translate(10%, 20%);
+  width: 190px;
+
+}
+.btn-danger {
+  margin: 8px;
+  transform: translate(10%, 40%);
+  width: 190px;
+  
+}
+.btn-primary{
+  margin: 16px;
+  transform: translate(10%, -30%);
+}
+.widgets{
+  width:250px;
+  height:140px;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* End of Widget */
+
 
 /* ----------------------RAHAF--------------------------- */
   
