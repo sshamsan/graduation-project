@@ -1,0 +1,100 @@
+.header{
+    margin-left: 100px; /* Same as the width of the sidenav */
+    background-color: #13293D;
+    height: 81px;
+    /* overflow: hidden; */
+    padding: 20px 10px;
+}
+  
+  .header a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px; 
+    line-height: 25px;
+    border-radius: 4px;
+  }
+  
+.logo {
+   width: 80px;
+   justify-content: center;
+   align-self: center;
+   align-items: center;
+   margin: 8px;
+  }
+  
+  
+  .header-right {
+    float: right;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+.main {
+    margin-left: 100px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+    background-color: #e8f1f2;
+    height: 1000px;
+  }
+
+.sidenav {
+  height: 100%;
+  width: 100px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #13293D;
+  overflow-x: hidden;
+  /* padding-top: 20px; */
+}
+
+.sidenav a {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  transition: all 0.3s ease;
+  color: #e8f1f2;
+  font-size: 16px;
+}
+
+.sidenav a:hover {
+  color: #13293D;
+    background-color: #e8f1f2   ;
+}
+
+.active {
+    background-color: #e8f1f2;
+}
+.active a{
+    color: #13293D;
+}
+
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  
+  
+  .rows{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .user-info{
+    margin: 4px;
+    padding: 4px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .base{
+    margin: 4;
+    padding:10;
+  }
