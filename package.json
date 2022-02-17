@@ -1,0 +1,22 @@
+{
+  "name": "graduation-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/sshamsan/graduation-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sshamsan/graduation-project/issues"
+  },
+  "homepage": "https://github.com/sshamsan/graduation-project#readme",
+  "dependencies": {
+    "dayjs": "^1.10.7"
+  }
+}
