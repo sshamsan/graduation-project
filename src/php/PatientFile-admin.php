@@ -145,7 +145,7 @@ if ($res == 1) {
                 <p><?= $row['Birth_Date'] ?></p>
                 <!-- <button name ="ShowFile" type="submit" form="myForm" class="btn btn-outline-secondary" method="post">Show File</button> -->
                 <!-- <form action="" method = "GET"  id="myForm">                      -->
-                <button type="submit" name='id'  class="sumbitbutton btn btn-success"><a style="color: black; text-decoration: none;" href=http://localhost/JISH_Project_V4/src/html/PatientData-Admin.php?id=<?=$row['File_Number'] ?>>Show File</a></button>
+                <button type="submit" name='id'  class="sumbitbutton btn btn-success"><a style="color: black; text-decoration: none;" href=http://localhost/graduation-project/src/php/PatientData-Admin.php?id=<?=$row['File_Number'] ?>>Show File</a></button>
                 <!-- </form> -->
               
               </div>

@@ -133,3 +133,9 @@ margin-right: 30px;
 }
 
 
+input[type=text]{
+  background: transparent;
+  border: none;
+  /* border-bottom: 1px solid #000000; */
+  }
+  

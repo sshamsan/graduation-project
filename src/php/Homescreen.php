@@ -83,7 +83,6 @@ if ($res == 1) {
   '   
       <script>
       alert("Appointment Booked Sucesssfully");
-      //window.location.href = "update.php";
       </script>
       ';
 
@@ -135,7 +134,7 @@ if ($res == 1) {
                 <a href="./Calendarscreen.php"><i class="fas fa-calendar-alt fa-2x"></i></a>
             </li>
             <li class="nav-item">
-                <a href="#"><i class="fas fa-bell fa-2x"></i></a>
+                <a href="./Setting.php"><i class="fas fa-bell fa-2x"></i></a>
             </li>
         </ul>
 
