@@ -15,19 +15,6 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href='../css/Homescreen.css'>
 
-    <!-- <script>
-        function myFunction() {
-            var element = document.getElementById("myDIV");
-            if (element.classList.contains("active")) {
-                element.classList.remove("active")
-            } else {
-                element.classList.add("active");
-            }
-
-        }
-    </script> -->
-
-
 </head>
 
 <body>
@@ -63,7 +50,7 @@
                 <a href="#" onclick="myFunction()"><i class="fas fa-home fa-2x"></i></a>
             </li>
             <li class="nav-item">
-                <a href="./PatientData-Admin.html"><i class="fas fa-archive fa-2x"></i></a>
+                <a href="PatientData-Therapist.html"><i class="fas fa-archive fa-2x"></i></a>
             </li>
             <li class="nav-item">
                 <a href="./Calendarscreen.html"><i class="fas fa-calendar-alt fa-2x"></i></a>
@@ -76,20 +63,22 @@
     </div>
 
 
+
+    <!-- Action drop down menu -->
+
+
+    <!-- End of Action drop down menu -->
     <!-- Rest of the screen -->
     <!-- Cointainer -->
     <div class="main">
 
         <div class="cointainer" style="padding-right: 300px; padding-left: 300px; padding-top: 20px;">
 
-            <div class="widgets d-flex flex-column">
-
-                <div> 
-                    <button type="button" class="btn btn-success">Total Appointments: 10</button>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-danger">Total no-shows: 3</button>
-
+            <div class="appt-widget">
+                <div class="d-flex flex-row">
+                    <p class="item-widget">Total Appointments: 3</p>
+                    <p class="item-widget">Total Cancelled: 7</p>
+                    <p class="item-widget">Total No-shows: 10</p>
                 </div>
             </div>
 
@@ -120,17 +109,50 @@
                             </div>
                             <div class="modal-body">
                                 <form class="popupwindow d-flex flex-column">
-                                    <input class="form-control" type="text" placeholder="Patient">
+
+                                    <!-- Patient ID: Dropdown menu -->
+                                    <button type="button" class="form-select" id="test1" data-bs-toggle="dropdown"
+                                        aria-expanded="false">Patient</button>
+
+                                    <div class="dropdown-menu pt-0 mx-0 rounded-3 shadow overflow-hidden"
+                                        aria-labelledby="test1" style="width: 280px;">
+                                        <form class="p-2 mb-2 bg-light border-bottom">
+                                            <input type="search" class="form-control" autocomplete="false"
+                                                placeholder="Type to filter...">
+                                        </form>
+                                        <ul class="list-unstyled mb-0">
+                                            <li><button class="dropdown-item" type="button">Khalid</button></li>
+                                            <li><button class="dropdown-item" type="button">Ahmed</button></li>
+                                            <li><button class="dropdown-item" type="button">Mohammed</button></li>
+                                            <li><button class="dropdown-item" type="button">Abdullah</button></li>
+                                        </ul>
+                                    </div>
+                                    <!-- End of Patient ID: Dropdown menu -->
+                                    <br>
+                                    <!-- <input class="form-control" type="text" placeholder="Patient"> -->
+
                                     <select class="form-select" aria-label="Default select example">
                                         <option value="1">Therapist 1</option>
                                         <option value="2">Therapist 2</option>
                                         <option value="3">Therapist 3</option>
                                     </select>
-                                    <input class="form-control" type="datetime-local" placeholder="Date&time">
+                                    <br>
+                                    <!-- <input class="form-control" type="datetime-local" placeholder="Date&time">
+                                    <br> -->
                                     <select class="form-select" aria-label="Default select example">
                                         <option value="1">DX</option>
                                         <option value="2">TX</option>
                                     </select>
+                                    <br>
+
+                                    <select class="form-select" aria-label="Default select example"
+                                        aria-placeholder="Available Slots">
+                                        <option value="" disabled selected>Available Slots</option>
+                                        <option value="1">Monday, 2 Feb, 2-3 pm</option>
+                                        <option value="1">Monday, 2 Feb, 3-4 pm</option>
+                                        <option value="1">Monday, 2 Feb, 4-5 pm</option>
+                                    </select>
+                                    <br>
 
                                 </form>
                             </div>
@@ -161,14 +183,24 @@
                             <div class="modal-body">
                                 <form class="popupwindow">
                                     <input class="form-control" type="text" placeholder="Name">
+                                    <br>
                                     <input class="form-control" type="text" placeholder="Phone Number">
+                                    <br>
                                     <select class="form-select" aria-label="Default select example">
                                         <option selected>Therapist</option>
                                         <option value="1">Therapist 1</option>
                                         <option value="2">Therapist 2</option>
                                         <option value="3">Therapist 3</option>
                                     </select>
-                                    <input class="form-control" type="datetime-local" placeholder="Date&Time">
+                                    <br>
+                                    <!-- <input class="form-control" type="datetime-local" placeholder="Date&Time"> -->
+                                    <select class="form-select" aria-label="Default select example"
+                                        aria-placeholder="Available Slots">
+                                        <option value="" disabled selected>Available Slots</option>
+                                        <option value="1">Monday, 2 Feb, 2-3 pm</option>
+                                        <option value="1">Monday, 2 Feb, 3-4 pm</option>
+                                        <option value="1">Monday, 2 Feb, 4-5 pm</option>
+                                    </select>
                                 </form>
 
                             </div>
@@ -201,6 +233,7 @@
                             <th scope="col">Visit</th>
                             <th scope="col">Time</th>
                             <th scope="col">Status</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -210,6 +243,15 @@
                             <td>Consult</td>
                             <td>12:40</td>
                             <td>Cancelled</td>
+                            <td><button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">Action</button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><button class="dropdown-item" type="button">Confirm</button></li>
+                                    <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                    <li><button class="dropdown-item" type="button">No-show</button></li>
+                                    <li><button class="dropdown-item" type="button">Edit</button></li>
+                                </ul>
+                            </td>
                         </tr>
                         <tr>
                             <td>Mark</td>
@@ -217,6 +259,15 @@
                             <td>Consult</td>
                             <td>12:40</td>
                             <td>Cancelled</td>
+                            <td><button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">Action</button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><button class="dropdown-item" type="button">Confirm</button></li>
+                                    <li><button class="dropdown-item" type="button">Cancel</button></li>
+                                    <li><button class="dropdown-item" type="button">No-show</button></li>
+                                    <li><button class="dropdown-item" type="button">Edit</button></li>
+                                </ul>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
