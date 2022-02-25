@@ -85,7 +85,13 @@ if ($res == 1) {
           </script>
           ';
   }
-}     
+}
+
+
+if(isset($_POST["remove"])){
+    mysqli_query($con,"DELETE FROM `employee` WHERE Employee_ID='{$_POST['remove']}'");
+}
+
 ?>
 
 
@@ -137,7 +143,7 @@ if ($res == 1) {
     <!-- Rest of the screen -->
     <!-- Cointainer -->
     <div class="main">
-        <div class="container d-flex flex-wrap justify-content-center">
+        <div id="new"class="container d-flex flex-wrap justify-content-center">
             <h4 class="Font"><strong>Company User</strong></h4>
             <a class="d-flex align-items-right mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
               <div class="container">
@@ -189,21 +195,65 @@ if ($res == 1) {
               <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
             </a>
           </div>
-        <pre class="tab"><strong>      Name                Username                Role </strong></pre>
+        <!-- <pre class="tab"><strong>      Name                ID                Role </strong></pre>
         <div class="Cointainer">
-            <pre><h4>Mohammed A.           Mohammed123            Front-desk                        <button type="button" class="btn btn-danger "
-                data-dismiss="modal"><strong>Remove</strong></button></pre></h4>
+            <pre><h4>  <?=$row['Name'] ?>           <?=$row['Employee_ID'] ?>            <?=$row['Role'] ?>          
+            <button type="button" class="btn btn-danger " data-dismiss="modal"><strong>Remove</strong></button></pre></h4>
 
         </div>
-        <div class="Cointainer">
-            <pre><h4> Ali M.                  Ali123              Therapist                         <button type="button" class="btn btn-danger "
-                data-dismiss="modal"><strong>Remove</strong></button></pre></h4>
-                
-        </div>
-    </div>
+    </div> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
         </script>
+
+
+            <!-- Appointments Table -->
+            <div class="table-responsive">
+
+                <table class="table center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        $result = mysqli_query($con,"SELECT * FROM employee");
+                        $rows=mysqli_num_rows ( $result ); 
+                        while ($row = mysqli_fetch_array($result)) {
+                    ?>
+                        <tr>
+                            <td><?= $row['Name'] ?></td>
+                            <td><?= $row['Employee_ID'] ?></td>
+                            <td><?= $row['Role'] ?></td>
+                            <form method="post">
+                            <td><button name="remove" value="<?=$row['Employee_ID']?>" type="submit" class="btn btn-danger" onclick="Ask()"><strong>Remove</strong></button></pre></h4>
+                            </form>
+                        <script>
+                        </script>
+                        </tr>
+                        <?php
+                        }
+                        ?>
+                        <script>
+                        function Ask() {
+                            if (confirm('Are you sure you want to remove this employee?')) {
+                            // Save it!
+                            echo('The employee was removed.');
+                           } 
+                        }
+                        </script>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
 </body>
 
 </html>

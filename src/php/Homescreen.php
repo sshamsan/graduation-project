@@ -149,7 +149,7 @@ if ($res == 1) {
 
             <div class="widgets d-flex flex-column">
                  <?php
-                    $result = mysqli_query($con,"SELECT * FROM appointment");
+                    $result = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE()");
                     $rows=mysqli_num_rows ( $result );     
                  ?>
                 <div> 
