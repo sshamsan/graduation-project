@@ -131,5 +131,21 @@ margin-top: 2px;
   
 }
 
+.inputb{
+  width: 100%;
+  height: 38px;
+  border-style: solid;
+  border-color: lightgrey;
+  border-width: thin;
+  border-radius: 5px;
+}
+
+.inputdate{
+  margin-bottom: 20px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+}
 
   

@@ -100,14 +100,14 @@
                        <pre><h3><strong>Patient Info</strong> </h3></pre> 
                         <form class="popupwindow">
                           <!--<label><h4><strong>Patient name</strong></h4></label><br>-->
-                          <input type="text" placeholder="Name"><br><br>
-                          <input type="text" placeholder="Phone Number"><br><br>
+                          <input class="inputb" type="text" placeholder="   Name"><br><br>
+                          <input class="inputb"type="text" placeholder="   Phone Number"><br><br>
                           <select class="form-select" aria-label="Default select example">
                             <option value="" disabled selected hidden>Choose Gender</option>
                             <option value="1">Male</option>
                             <option value="2">Female</option>
                         </select><br>
-                          <input type="text" placeholder="National ID"><br>
+                          <input class="inputb" type="text" placeholder="   National ID"><br>
                           <label><h4><strong></strong></h4></label><br>
                           <select class="form-select" aria-label="Default select example">
                             <option value="" disabled selected hidden>Choose Nationality</option>
@@ -119,13 +119,17 @@
                             <option value="1">Arabic</option>
                             <option value="2">English</option>
                         </select><br>
-                          <input type="date" placeholder=" Birthdate"><br><br>
+                          <!-- <input type="date" placeholder=" Birthdate"><br><br> -->
+                          <input class="inputdate inputb" type="text" placeholder="   Birthdate" 
+                            onfocus="(this.type='date')"
+                             onblur="(this.type='text')">
+      
                           <select class="form-select" aria-label="Default select example">
                             <option value="" disabled selected hidden>Choose Religion</option>
                             <option value="1">Muslim</option>
                             <option value="2">Non-Muslim</option>
                         </select><br>
-                          <input type="text" placeholder="Address"><br><br>
+                          <input  class="inputb" type="text" placeholder="   Address"><br><br>
                         </form>
                       </div>
                       <!-- Modal footer -->
