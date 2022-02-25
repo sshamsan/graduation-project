@@ -84,52 +84,48 @@
               <div class="container">
                 <!-- Button to Open the Modal -->
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                    New Patient <i class="fas fa-plus"></i></button>
+                    New File <i class="fas fa-plus"></i></button>
                 <!-- The Modal -->
                 <div class="modal" id="myModal">
                   <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                       <!-- Modal Header -->
                       <div class="modal-header">
-                        <h3 class="modal-title"><strong>New Patient</strong></h3>
+                        <h3 class="modal-title"><strong>New File</strong></h3>
                     <button type="button" class="btn" data-dismiss="modal"><i
                             class="fas fa-close fa-2x"></i></button>
                     </div>
                       <!-- Modal body -->
                       <div class="modal-body">
-                       <pre><h3>Patient Info     123456</h3></pre> 
+                       <pre><h3><strong>Patient Info</strong> </h3></pre> 
                         <form class="popupwindow">
-                          <label><h4><strong>Patient name</strong></h4></label><br>
-                          <input type="text" placeholder=""><br><br>
-                          <label><h4><strong>Patient phone number </strong></h4></label><br>
-                          <input type="text" placeholder=""><br><br>
-                          <label><h4><strong>Patient gender</strong></h4></label><br>
+                          <!--<label><h4><strong>Patient name</strong></h4></label><br>-->
+                          <input type="text" placeholder="Name"><br><br>
+                          <input type="text" placeholder="Phone Number"><br><br>
                           <select class="form-select" aria-label="Default select example">
+                            <option value="" disabled selected hidden>Choose Gender</option>
                             <option value="1">Male</option>
                             <option value="2">Female</option>
                         </select><br>
-                          <label><h4><strong>Patient national ID </strong></h4></label><br>
-                          <input type="text" placeholder=""><br><br>
-                          <label><h4><strong>Patient nationality</strong></h4></label><br>
+                          <input type="text" placeholder="National ID"><br>
+                          <label><h4><strong></strong></h4></label><br>
                           <select class="form-select" aria-label="Default select example">
+                            <option value="" disabled selected hidden>Choose Nationality</option>
                             <option value="1">Saudi</option>
                             <option value="2">Non-Saudi</option>
                         </select><br>
-                        <label><h4><strong>Patient languages</strong></h4></label><br>
                           <select class="form-select" aria-label="Default select example">
+                            <option value="" disabled selected hidden>Choose Languages</option>
                             <option value="1">Arabic</option>
                             <option value="2">English</option>
                         </select><br>
-                        <label><h4><strong>Patient birthdate </strong></h4></label><br>
-                          <input type="date" placeholder=""><br><br>
-                       <label><h4><strong>Patient religion</strong></h4></label><br>
+                          <input type="date" placeholder=" Birthdate"><br><br>
                           <select class="form-select" aria-label="Default select example">
+                            <option value="" disabled selected hidden>Choose Religion</option>
                             <option value="1">Muslim</option>
                             <option value="2">Non-Muslim</option>
                         </select><br>
-                        <label><h4><strong>Patient address</strong></h4></label><br>
-                          <input type="text" placeholder=""><br><br>
-                        
+                          <input type="text" placeholder="Address"><br><br>
                         </form>
                       </div>
                       <!-- Modal footer -->
