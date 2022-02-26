@@ -113,3 +113,22 @@ margin-right: 838px;
   font-size: 15px;
 }
 
+.inputb{
+  width: 100%;
+  height: 38px;
+  border-style: solid;
+  border-color: lightgrey;
+  border-width: thin;
+  border-radius: 5px;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+}
+
+.inputbottom{
+  margin-top: 20px;
+}
+
