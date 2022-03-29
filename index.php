@@ -85,7 +85,7 @@ require_once "config.php";
                         LOGIN </button></a>
             </div>
         </form>
-        <a style="align-self: flex-start;" href="src/html/ResetPassword.php">Forgot your password?</a>
+        <a style="align-self: flex-start;" href="src/html/ResetPassword.html">Forgot your password?</a>
     </div>
 
 
