@@ -308,7 +308,8 @@ if($stmt->execute()){
                                     </select> 
                                     <br>
                                     <button name ="BAppointment" type="submit" class="btn btn-primary flex-grow-1"
-                                        >Save</button>
+                                        >Save</button> 
+                                        <!-- FIX SUBMIT ISSUE -->
                                 </form>
                             </div>
                             <div class="modal-footer d-flex">
@@ -336,31 +337,34 @@ if($stmt->execute()){
                                         class="fas fa-close fa-2x"></i></button>
                             </div>
                             <div class="modal-body">
-                                <form class="popupwindow">
-                                    <input class="form-control inputb" type="text" placeholder="Name">
-                                    <input class="form-control inputb" type="text" placeholder="Phone Number">
-                                    <select class="form-select inputb" aria-label="Default select example">
-                                        <option selected>Therapist</option>
-                                        <option value="1">Therapist 1</option>
-                                        <option value="2">Therapist 2</option>
-                                        <option value="3">Therapist 3</option>
+                                <form class="popupwindow" method="post">
+                                    <input name="patientname" class="form-control inputb" type="text" placeholder="Name">
+                                    <input name="phoneno" class="form-control inputb" type="text" placeholder="Phone Number">
+                                    <select name="therapist" class="form-select inputb" aria-label="Default select example">
+                                    <option value="" disabled selected hidden>Choose Therapist</option>
+                                    <?php
+                                        $records = mysqli_query($con,"SELECT Name FROM employee WHERE Role = 'Therapist' ");
+                                        while ($row = mysqli_fetch_array($records)){
+                                            echo "<option value=\"". $row['Name'] ."\">". $row['Name'] ."</option>";
+                                        }
+                                    ?>
                                     </select>
                                     <!-- <input class="form-control" type="datetime-local" placeholder="Date&Time"> -->
-                                    <select class="form-select " aria-label="Default select example"
-                                        aria-placeholder="Available Slots">
-                                        <option value="" disabled selected>Available Slots</option>
-                                        <option value="1">Monday, 2 Feb, 2-3 pm</option>
-                                        <option value="1">Monday, 2 Feb, 3-4 pm</option>
-                                        <option value="1">Monday, 2 Feb, 4-5 pm</option>
-                                    </select>
+                                    <select name="time" class="form-select" aria-label="Default select example">
+                                            <option value="" disabled selected hidden>Choose Appointment Time</option>
+                                                <?php
+                                                        foreach($timeslots as $ts){ 
+                                                            echo "<option value=\"". $ts ."\">". $ts ."</option>"; 
+                                                        }?>
+                                    </select> 
                                 </form>
 
                             </div>
 
                             <!-- Modal footer -->
                             <div class="modal-footer d-flex">
-                                <button type="button" class="flex-grow-1 btn btn-primary"
-                                    data-dismiss="modal">Save</button>
+                            <button name="Intake" type="submit" class="flex-grow-1 btn btn-primary"
+                                        >Save</button>
                             </div>
                         </div>
                     </div>
@@ -389,38 +393,19 @@ if($stmt->execute()){
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                        while ($row = mysqli_fetch_array($result)) {
+                        ?>
                         <tr>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>Consult</td>
-                            <td>12:40</td>
-                            <td>Cancelled</td>
-                            <td><button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">Action</button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><button class="dropdown-item" type="button">Confirm</button></li>
-                                    <li><button class="dropdown-item" type="button">Edit</button></li>
-                                    <li><button class="dropdown-item" type="button">No-show</button></li>
-                                    <li><button class="dropdown-item" type="button">Cancel</button></li>
-                                </ul>
-                            </td>
+                            <td><?= $row['file_number'] ?></td>
+                            <td><?= $row['Therapist_Name'] ?></td>
+                            <td>DX</td>
+                            <td><?= $row['Appointment_Time'] ?></td>
+                            <td><?= $row['status'] ?></td>
                         </tr>
-                        <tr>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>Consult</td>
-                            <td>12:40</td>
-                            <td>Cancelled</td>
-                            <td><button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1"
-                                    data-bs-toggle="dropdown" aria-expanded="false">Action</button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><button class="dropdown-item" type="button">Confirm</button></li>
-                                    <li><button class="dropdown-item" type="button">Edit</button></li>
-                                    <li><button class="dropdown-item" type="button">No-show</button></li>
-                                    <li><button class="dropdown-item" type="button">Cancel</button></li>
-                                </ul>
-                            </td>
-                        </tr>
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
