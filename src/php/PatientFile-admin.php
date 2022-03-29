@@ -99,7 +99,7 @@ if ($res == 1) {
                 <a href="#" onclick="myFunction()"><i class="fas fa-home fa-2x"></i></a>
             </li>
             <li class="nav-item active">
-                <a href="./PatientData-Admin.html"><i class="fas fa-archive fa-2x"></i></a>
+                <a href="./PatientFile-admin.php"><i class="fas fa-archive fa-2x"></i></a>
             </li>
             <li class="nav-item">
                 <a href="./Calendarscreen.html"><i class="fas fa-calendar-alt fa-2x"></i></a>
