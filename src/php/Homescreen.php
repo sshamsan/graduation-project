@@ -402,6 +402,17 @@ if($stmt->execute()){
                             <td>DX</td>
                             <td><?= $row['Appointment_Time'] ?></td>
                             <td><?= $row['status'] ?></td>
+                            <td><button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">Action</button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><button name="confirm" class="dropdown-item" type="button">Confirm</button></li>
+                                    <li><button name="edit" class="dropdown-item" type="button">Edit</button></li>
+                                    <li><button name="no_show" class="dropdown-item" type="button">No-show</button></li>
+                                    <li><button name="cancel" class="dropdown-item" type="button">Cancel</button></li>
+                                    <!-- PUT FUNCTIONS IN BUTTONS -->
+                                </ul>
+                            
+                            </td>
                         </tr>
                         <?php
                         }
