@@ -201,7 +201,7 @@ if ($res == 1) {
                 <h2 class="price-text"><i class="far fa-folder-open"></i></h2>
                 <p><?=$row['File_Number'] ?></p>
                 <p><?= $row['Birth_Date'] ?></p>
-                <button type="submit" name='id' class="btn btn-primary flex-grow-1"><a style="color: black; text-decoration: none;" href=http://localhost/graduation-project/src/php/PatientData-therapist.php?id=<?=$row['File_Number'] ?>>Show File</a></button>
+                <button type="submit" name='id' class="btn btn-primary flex-grow-1"><a style="color: black; text-decoration: none;" href=http://localhost/graduation-project-1/src/php/PatientData-therapist.php?id=<?=$row['File_Number'] ?>>Show File</a></button>
               </div>             
             </div>
           </div>
