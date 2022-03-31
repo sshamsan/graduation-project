@@ -132,4 +132,15 @@ margin-right: 30px;
     margin-top: 50px;
 }
 
+input[type=text]{
+  background: transparent;
+  border: none;
+  /* border-bottom: 1px solid #000000; */
+  }
+  
+  input[type=date]{
+    background: transparent;
+    border: none;
+    /* border-bottom: 1px solid #000000; */
+    }
 
