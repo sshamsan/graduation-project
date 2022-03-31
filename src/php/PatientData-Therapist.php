@@ -503,9 +503,11 @@ if ($con->query($sql) === TRUE) {
             <li class="nav-item">
                 <a href="#"><i class="fas fa-bell fa-2x"></i></a>
             </li>
+            <?php if($_SESSION['log1']=='Admin'){?>
             <li class="nav-item">
                 <a href="Settings.php"><i class="fas fa-gear fa-2x"></i></a>
             </li>
+            <?php } ?>
         </ul> 
 
     </div>
@@ -527,10 +529,6 @@ if ($con->query($sql) === TRUE) {
                             <h3><strong><?= $row['Name'] ?></strong></h3>
                             <p><strong><?= $row['File_Number'] ?></strong></p>
                             <form method="post">
-                            <button type="button" class="btn btn-primary flex-grow-1"
-                                onclick="toggle()">Edit</button>
-                            <button name="save" type="submit" class="btn btn-primary flex-grow-1"
-                                >Save</button>
                                 
                         </div>
                         
@@ -550,6 +548,14 @@ if ($con->query($sql) === TRUE) {
                             <h8><strong>Address</strong></h8><br>
                             <input name="PAddress" type ="text" id="PAddress" value="<?= $row['Address'] ?>" disabled> <br><br>
                         </div>
+                        <?php if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?>
+                        <div>
+                        <button type="button" class="btn btn-primary flex-grow-1"
+                                onclick="toggle()">Edit</button>
+                            <button name="save" type="submit" class="btn btn-primary flex-grow-1"
+                                >Save</button>
+                        </div>
+                        <?php } ?>
                         </form>
                         <script>
                         function toggle() {
@@ -584,6 +590,7 @@ if ($con->query($sql) === TRUE) {
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <strong></strong>
+                                <?php if($_SESSION['log1']=='Therapist'){?>
                                 <form  method="post" enctype="multipart/form-data">
                                     <input name="userfile" type="file" id="actual-btn" onchange="this.form.submit()" hidden/>
                                     <label  for="actual-btn" class="btn btn-primary">Upload Report <i class="fa fa-upload"></i></label>
@@ -594,6 +601,7 @@ if ($con->query($sql) === TRUE) {
                                         <button class="btn btn-primary"><a id=link  href="download.php?id=<?=$_GET['id']?>&date=<?=$uploaded_date;?>">Download</a></button>                                       
                                         
                                  </form>
+                                 <?php }?>
                             </div>
                         </div>
                     </div>
@@ -609,9 +617,11 @@ if ($con->query($sql) === TRUE) {
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <strong></strong>
+                                <?php if($_SESSION['log1']=='Therapist'){?>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#DxReport">
                                     DX Report <i class="fas fa-plus"></i></button>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -634,10 +644,12 @@ if ($con->query($sql) === TRUE) {
                                 <pre
                                     class="tab"><h6><strong> Type of Dx (Reccomendation)                                </strong></h6></pre>
                                 <pre class="tab"><h7> Fluency/Voice/Articulation(60 minutes)      </h7></pre>
+                                <?php if($_SESSION['log1']=='Therapist'){?>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#ConsultReport"> Edit Consult Report</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#PsychReport"> Psych Report <i class="fas fa-plus"></i></button>
+                                    <?php } ?>
                             </div>
                         </div>
                     </div>

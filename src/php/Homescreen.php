@@ -185,9 +185,11 @@ if($stmt->execute()){
             <li class="nav-item">
                 <a href="#"><i class="fas fa-bell fa-2x"></i></a>
             </li>
+            <?php if($_SESSION['log1']=='Admin'){?>
             <li class="nav-item">
                 <a href="Settings.php"><i class="fa fa-gear fa-2x"></i></a>
             </li>
+                <?php }?>
         </ul>
 
     </div>
@@ -222,6 +224,7 @@ if($stmt->execute()){
                 <div>
                     <h2>Today's Appointments</h2>
                 </div>
+                <?php if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?>
                 <div>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newAppt">New
                         Appointment <i class="fa fa-plus"></i></button>
@@ -230,6 +233,7 @@ if($stmt->execute()){
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newIntake">New
                         Intake <i class="fa fa-plus base"></i></button>
                 </div>
+                <?php } ?>
             </div>
 
 

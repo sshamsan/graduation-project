@@ -87,9 +87,11 @@ else
         <li class="nav-item">
             <a href="#"><i class="fas fa-bell fa-2x"></i></a>
         </li>
+        <?php if($_SESSION['log1']=='Admin'){?>
         <li class="nav-item">
             <a href="Settings.php"><i class="fas fa-gear fa-2x"></i></a>
         </li>
+        <?php } ?>
       </ul>
     </div>
     <!-- Rest of the screen -->

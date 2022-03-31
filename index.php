@@ -33,13 +33,19 @@ require_once "config.php";
         if ($qry2) {
             $row = mysqli_fetch_array($qry1);
             // $_SESSION['log'] = $row;
-            
-            if($row['Role']=='admin')
-            $_SESSION['log1'] = "admin";
+            if($row['Role']=='Admin'){
+                echo '
+                <script>
+                  alert("ENTER");
+                  window.location.href = "src/php/Homescreen.php";
+                </script>';
+            $_SESSION['log1'] = "Admin";}
             elseif($row['Role']=='FDworker')
             $_SESSION['log1'] = "FDworker";
             else
-            $_SESSION['log1'] = "therapist";
+            $_SESSION['log1'] = "Therapist";
+            $_SESSION['id'] = $qry1['Employee_ID'];
+
             
         // $json_data['url'] = $ST['site_url'].'/home';
         //print_r($row['log1']);

@@ -102,14 +102,16 @@ if ($res == 1) {
                 <a href="./PatientFile-admin.php"><i class="fas fa-archive fa-2x"></i></a>
             </li>
             <li class="nav-item">
-                <a href="./Calendarscreen.html"><i class="fas fa-calendar-alt fa-2x"></i></a>
+                <a href="./Calendarscreen.php"><i class="fas fa-calendar-alt fa-2x"></i></a>
             </li>
             <li class="nav-item">
                 <a href="#"><i class="fas fa-bell fa-2x"></i></a>
             </li>
+            <?php if($_SESSION['log1']=='Admin'){?>
             <li class="nav-item">
                 <a href="Settings.php"><i class="fas fa-gear fa-2x"></i></a>
             </li>
+            <?php }?>
         </ul>
 
     </div>
@@ -121,9 +123,11 @@ if ($res == 1) {
         <div class="container d-flex flex-wrap justify-content-center">
             <a class="d-flex align-items-right mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
               <div class="container">
+              <?php if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?>
                 <!-- Button to Open the Modal -->
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                     New File <i class="fas fa-plus"></i></button>
+                    <?php } ?>
                 <!-- The Modal -->
                 <div class="modal" id="myModal">
                   <div class="modal-dialog modal-dialog-scrollable">
@@ -176,8 +180,9 @@ if ($res == 1) {
                         >Save</button>
                       </div>
                         </form>
+                        
                       </div>
-                      
+                    
                       
                     </div>
                   </div>

@@ -134,7 +134,7 @@
 }
 
 body {
-  background-color: #e2ffdc;
+  background-color: #e8f1f2;
 }
 
 .wrapper {
@@ -292,3 +292,4 @@ p {
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: black;
 }
+
