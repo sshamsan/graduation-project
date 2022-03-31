@@ -506,7 +506,7 @@ if ($con->query($sql) === TRUE) {
             <li class="nav-item">
                 <a href="Settings.php"><i class="fas fa-gear fa-2x"></i></a>
             </li>
-        </ul> -->
+        </ul> 
 
     </div>
 

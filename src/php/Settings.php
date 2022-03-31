@@ -161,32 +161,28 @@ if(isset($_POST["remove"])){
                             class="fas fa-close fa-2x"></i></button>
                     </div>
                       <!-- Modal body -->
-                      <div class="modal-body">
+                    <div class="modal-body">
                         <h3>User Info</h3>
-                        <form class="popupwindow"method="post">
-                          <label><h4><strong>Employee name</strong></h4></label><br>
-                          <input name="name" type="text" placeholder=""><br><br>
-                          <label><h4><strong>Employee email</strong></h4></label><br>
-                          <input name="Emp_email"type="text" placeholder=""><br><br>
-                          <label><h4><strong>Employee role</strong></h4></label><br>
-                          <select name="role"class="form-select" aria-label="Default select example">
+                    <form class="popupwindow"method="post">
+                        <input name="name" class ="inputb" type="text" placeholder="   Name">
+                        <input   name="Emp_email" class ="inputb" type="text" placeholder="   Email">
+                        <select class="form-select" aria-label="Default select example">
+                            <option value="" disabled selected hidden>Employee role</option>
                             <option value="Admin">Admin</option>
                             <option value="Front-desk Worker">Front-desk Worker</option>
                             <option value="Therapist">Therapist</option>
-                        </select><br>
-                        <label><h4><strong>Employee specialization</strong></h4></label><br>
-                        <input name="specialization" type="text" placeholder=""><br><br>
-                    
-                      </div>
+                        </select>
+                        <input name="specialization" class ="inputb inputbottom" type="text" placeholder="   Specialization">
                       <!-- Modal footer -->
                       <div class="modal-footer">
                         <button name="Emp" type="submit" class="btn btn-primary flex-grow-1"
                         >Save</button>
                       </div>
-                      </form>
+                    </form>
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
               <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
