@@ -125,7 +125,7 @@ echo
 
 // update record
 if (isset($_POST['save'])) {
-    echo 'ENTERED';
+   // echo 'ENTERED';
     $file_num = $_GET['id'];
 $sql = "UPDATE patient 
         SET National_ID='{$_POST['National_ID']}' 
@@ -135,7 +135,7 @@ $sql = "UPDATE patient
         , Address='{$_POST['PAddress']}'
         WHERE file_number=$file_num";
 if ($con->query($sql) === TRUE) {
-    echo "Record updated successfully";
+    echo "Record updated successfully"; // change to script
   } else {
     echo "Error updating record: " . $con->error;
   }

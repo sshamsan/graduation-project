@@ -186,7 +186,7 @@ if($stmt->execute()){
                 <a href="#"><i class="fas fa-bell fa-2x"></i></a>
             </li>
             <li class="nav-item">
-                <a href="#"><i class="fa fa-gear fa-2x"></i></a>
+                <a href="Settings.php"><i class="fa fa-gear fa-2x"></i></a>
             </li>
         </ul>
 
