@@ -183,11 +183,36 @@ if ($res == 1) {
               <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
             </a>
           
-            <form class="search">
-                <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+            <form class="search" method="post">
+                <input type="search" name="searchID" class="form-control" placeholder="Search..." aria-label="Search">
             </form>
         </div>
         <div class="row">
+        <?php
+              if(!empty($_POST['searchID'])) {
+              $id=$_POST['searchID'];
+              $result = mysqli_query($con,"SELECT * FROM patient where File_Number='$id' ");
+              
+              while ($row = mysqli_fetch_array($result)) {   
+          ?>
+          <div class="pricing-column col-lg-4 col-md-2">
+            <div class="card">
+              <div class="card-header">
+                <h4><?= $row['Name'] ?></h4>
+              </div>
+              <div class="card-body">
+                <h2 class="price-text"><i class="far fa-folder-open"></i></h2>
+                <p><?=$row['File_Number'] ?></p>
+                <p><?= $row['Birth_Date'] ?></p>
+                <button type="submit" name='id' class="btn btn-primary flex-grow-1"><a style="color: black; text-decoration: none;" href=http://localhost/graduation-project-1/src/php/PatientData-therapist.php?id=<?=$row['File_Number'] ?>>Show File</a></button>
+              </div>             
+            </div>
+          </div>
+          <?php
+    }
+  }else{
+    ?>
+            <div class="row">
         <?php
               $result = mysqli_query($con,"SELECT * FROM patient");
               while ($row = mysqli_fetch_array($result)) {        
@@ -207,6 +232,7 @@ if ($res == 1) {
           </div>
           <?php
     }
+  }
     // ?>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
