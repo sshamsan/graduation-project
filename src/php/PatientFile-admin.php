@@ -96,7 +96,7 @@ if ($res == 1) {
 
             <!-- NAVIGATION BAR BUTTONS -->
             <li class="nav-item " id="myDIV">
-                <a href="#" onclick="myFunction()"><i class="fas fa-home fa-2x"></i></a>
+                <a href="HomeScreen.php" onclick="myFunction()"><i class="fas fa-home fa-2x"></i></a>
             </li>
             <li class="nav-item active">
                 <a href="./PatientFile-admin.php"><i class="fas fa-archive fa-2x"></i></a>
@@ -106,6 +106,9 @@ if ($res == 1) {
             </li>
             <li class="nav-item">
                 <a href="#"><i class="fas fa-bell fa-2x"></i></a>
+            </li>
+            <li class="nav-item">
+                <a href="Settings.php"><i class="fas fa-gear fa-2x"></i></a>
             </li>
         </ul>
 
@@ -167,13 +170,15 @@ if ($res == 1) {
                             <option value="Non-Muslim">Non-Muslim</option>
                         </select><br>
                           <input   name="address" class="inputb" type="text" placeholder="   Address"><br><br>
-                        </form>
-                      </div>
-                      <!-- Modal footer -->
-                      <div class="modal-footer">
+                          <!-- Modal footer -->
+                          <div class="modal-footer">
                         <button type="submit" name="ok"class="btn btn-primary flex-grow-1"
                         >Save</button>
                       </div>
+                        </form>
+                      </div>
+                      
+                      
                     </div>
                   </div>
                 </div>

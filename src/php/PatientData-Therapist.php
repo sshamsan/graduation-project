@@ -504,9 +504,9 @@ if ($con->query($sql) === TRUE) {
                 <a href="#"><i class="fas fa-bell fa-2x"></i></a>
             </li>
             <li class="nav-item">
-                <a href="#"><i class="fa fa-gear fa-2x"></i></a>
+                <a href="Settings.php"><i class="fas fa-gear fa-2x"></i></a>
             </li>
-        </ul>
+        </ul> -->
 
     </div>
 
@@ -575,9 +575,9 @@ if ($con->query($sql) === TRUE) {
                                 data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 
                                 <pre
-                                    class="tab">   <?echo $row['Appointment_Date'];?>           <?print $row['Therapist_Name'];?>           <?print $row['type'];?></pre>
+                                    class="tab">   <?php echo $row['Appointment_Date'];?>                       <?php print $row['Therapist_Name'];?>             <?php print $row['type'];?></pre>
                             </button>
-                            <div><?print $row['Appointment_Date'];?> </div>
+                            
                             <!-- OUTPUT DATA FROM DB -->
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
