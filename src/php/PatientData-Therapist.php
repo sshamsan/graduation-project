@@ -531,8 +531,9 @@ echo
                                 data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 
                                 <pre
-                                    class="tab">  HHHH11/14/2021                       Huda M.                       Session</pre>
+                                    class="tab">   <?echo $row['Appointment_Date'];?>           <?print $row['Therapist_Name'];?>           <?print $row['type'];?></pre>
                             </button>
+                            <div><?print $row['Appointment_Date'];?> </div>
                             <!-- OUTPUT DATA FROM DB -->
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
