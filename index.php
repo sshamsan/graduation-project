@@ -25,10 +25,9 @@ require_once "config.php";
   <?php
     $username = $password = '';
     
-    if (isset($_POST['login'])) {
+    if (isset($_POST['ok'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
-       // $pass=password_verify($_POST['password']);//should we use this?
         $qry1 = mysqli_query($con, "SELECT * FROM employee WHERE Employee_ID='$username' and Password='$password'") or die(mysqli_error($con));
         $qry2 = mysqli_num_rows($qry1);
         if ($qry2) {
@@ -41,16 +40,19 @@ require_once "config.php";
             $_SESSION['log1'] = "FDworker";
             else
             $_SESSION['log1'] = "therapist";
-            echo'           
-            <script>
-            window.location.href = "src/php/Homescreen.php";
-            </script>';
+            
         // $json_data['url'] = $ST['site_url'].'/home';
         //print_r($row['log1']);
+        echo '
+        <script>
+          alert("Signed in Sucessfully");
+          window.location.href = "src/php/Homescreen.php";
+        </script>
+        ';
         } else {
           echo '
       <script>
-        alert("Wrong Email ID or Password");
+        alert("Wrong ID or Password");
       </script>
       ';
       }
@@ -73,19 +75,19 @@ require_once "config.php";
             <div class="d-flex flex-column" style="justify-content: center; align-items: center;">
                 <div class="mb-3">
                     <label class="form-label" style="color: white;">Username</label>
-                    <input name="username" type="text" class="form-control" id="exampleFormControlInput1" placeholder="username">
+                    <input type="username" class="form-control" id="username" placeholder="username" name="username">
                 </div>
                 <div class="mb-3">
                     <label class="form-label" style="color: white;">Password</label>
-                    <input name="password"type="password" class="form-control" placeholder="password">
+                    <input type="password" class="form-control" placeholder="password" name="password">
                 </div>
 
                 <!-- Change button type to submit -->
-                <a href="src/php/Homescreen.php"><button name="login" type="submit" class="btn btn-primary mb-3">
-                        LOGIN </button></a>
+                <button type="submit" name="ok" class="btn btn-primary mb-3">
+                        LOGIN </button>
             </div>
         </form>
-        <a style="align-self: flex-start;" href="src/html/ResetPassword.html">Forgot your password?</a>
+        <a style="align-self: flex-start;" href="src/php/ResetPassword.php">Forgot your password?</a>
     </div>
 
 
@@ -95,4 +97,3 @@ require_once "config.php";
 </body>
 
 </html>
-
