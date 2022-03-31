@@ -81,15 +81,13 @@
   align-items: center;
 }
 
-.Cointainer{
-  width: 1200px;
-  height: 40px;
-  background-color: #fff;
-  margin-bottom: 20px;
-  padding-left: 50px;
-  right: 50px;
-  
+.checked { 
+    background: #006494;
+    color: white;
+    opacity: 0.2;
+    text-decoration: line-through;
 }
+
 
 .Font{
 margin-top: 20px;
