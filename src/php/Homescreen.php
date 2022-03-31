@@ -157,7 +157,7 @@ if($stmt->execute()){
 
                 <!-- Drop down menu -->
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <li><button class="dropdown-item" type="button">Log out</button></li>
+                    <li><button class="dropdown-item" type="button"><?php session_destroy(); ?><a href="../../index.php">Log out</a></button></li>
                 </ul>
             </div>
         </div>

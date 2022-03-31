@@ -79,7 +79,7 @@ if ($res == 1) {
 
                 <!-- Drop down menu -->
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <li><button class="dropdown-item" type="button">Log out</button></li>
+                    <li><button class="dropdown-item" type="submit"><?php session_destroy(); ?><a href="../../index.php">Log out</a></button></li>
                 </ul>
             </div>
         </div>
@@ -123,7 +123,7 @@ if ($res == 1) {
         <div class="container d-flex flex-wrap justify-content-center">
             <a class="d-flex align-items-right mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
               <div class="container">
-              <?php if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?>
+              <?php if($_SESSION['log1'] =='Admin' || $_SESSION['log1'] =='FDWorker'){?>
                 <!-- Button to Open the Modal -->
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                     New File <i class="fas fa-plus"></i></button>

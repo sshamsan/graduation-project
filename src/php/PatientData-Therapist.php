@@ -1,5 +1,6 @@
 <?php
 require_once ("../../config.php");
+
 ?>
 <?php
 $result = mysqli_query($con,"SELECT * FROM patient WHERE file_number ='{$_GET['id']}'");
@@ -154,7 +155,7 @@ if ($con->query($sql) === TRUE) {
 
                 <!-- Drop down menu -->
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <li><button class="dropdown-item" type="button">Log out</button></li>
+                    <li><button class="dropdown-item" type="submit"><?php session_destroy(); ?><a href="../../index.php">Log out</a></button></li>
                 </ul>
             </div>
         </div>

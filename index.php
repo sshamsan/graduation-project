@@ -31,22 +31,22 @@ require_once "config.php";
         $qry1 = mysqli_query($con, "SELECT * FROM employee WHERE Employee_ID='$username' and Password='$password'") or die(mysqli_error($con));
         $qry2 = mysqli_num_rows($qry1);
         if ($qry2) {
+            //$_SESSION['id'] = $qry1['Employee_ID'];
+            //echo($qry1);
             $row = mysqli_fetch_array($qry1);
+           // print_r($row['Employee_ID']);
             // $_SESSION['log'] = $row;
             if($row['Role']=='Admin'){
-                echo '
-                <script>
-                  alert("ENTER");
-                  window.location.href = "src/php/Homescreen.php";
-                </script>';
             $_SESSION['log1'] = "Admin";}
-            elseif($row['Role']=='FDworker')
-            $_SESSION['log1'] = "FDworker";
-            else
+            elseif($row['Role']=='FDWorker')
+            $_SESSION['log1'] = "FDWorker";
+            elseif($row['Role']=='Therapist')
             $_SESSION['log1'] = "Therapist";
-            $_SESSION['id'] = $qry1['Employee_ID'];
-
             
+            $_SESSION['id'] = $row['Employee_ID'];
+            
+
+            session_write_close();
         // $json_data['url'] = $ST['site_url'].'/home';
         //print_r($row['log1']);
         echo '
