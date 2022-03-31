@@ -15,18 +15,6 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href='../css/PatientData-Therapist.css'>
 
-    <!-- <script>
-        function myFunction() {
-            var element = document.getElementById("myDIV");
-            if (element.classList.contains("active")) {
-                element.classList.remove("active")
-            } else {
-                element.classList.add("active");
-            }
-
-        }
-    </script> -->
-
 
 </head>
 
@@ -49,6 +37,322 @@
         </div>
     </header>
 
+    <!------ ALL MODALS ------>
+    <a class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+
+        <!-- Session Report -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">New Report</h4>
+                        <button type="button" class="btn" data-dismiss="modal"><i
+                                class="fas fa-close fa-2x"></i></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form class="popupwindow">
+                            <label><strong>Report Type</strong></label><br>
+                            <select class="form-select" aria-label="Default select example">
+                                <option value="1">Consult</option>
+                                <option value="1">DX</option>
+                                <option value="2">TX</option>
+                            </select>
+                        </form>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary flex-grow-1" data-dismiss="modal"
+                            data-toggle="modal" data-target="#ConsultReport">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DX Report -->
+        <div class="modal" id="DxReport">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">DX Report</h4>
+                        <button type="button" class="btn" data-dismiss="modal"><i
+                                class="fas fa-close fa-2x"></i></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+
+
+                        <form class="popupwindow">
+
+                            DX REPORT INFO HERE
+                            <!-- <label><strong>Report Type</strong></label><br>
+                            <select class="form-select" aria-label="Default select example">
+                                <option value="1">DX</option>
+                                <option value="2">TX</option>
+                            </select> -->
+                        </form>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary flex-grow-1" data-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consult Report -->
+        <div class="modal" id="ConsultReport">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Consult Report</h4>
+                        <button type="button" class="btn" data-dismiss="modal"><i
+                                class="fas fa-close fa-2x"></i></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <!-- <form class="popupwindow"> -->
+
+                        <h6>Suspected Area</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Fluency
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Voice
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <label class="form-check-label" for="">
+                                Articulation
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Language
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Behavior
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Swallowing
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Feeding
+                            </label>
+                        </div>
+
+                        <br>
+                        <h6>Other disorder</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Hearing
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                CP
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Syndromic
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Neurogenic (Aphasia)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                ASD
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                ADD/ADHD
+                            </label>
+                        </div>
+
+
+                        <!-- </form> -->
+                        <br>
+                        <h6>Reccomendation</h6>
+                        <select class="form-select" aria-label="Default select example">
+                            <option value="1">ABA</option>
+                            <option value="2">EI DX Early Intervention - 180 mins </option>
+                            <option value="2">English DX (90 mins each session) / Bilingual (2 hours + 1 hour) </option>
+                            <option value="2">Nuerogenic (90 mins each session)</option>
+                            <option value="2">Speach language delay - 120 mins</option>
+                            <option value="2">ADHD/ASD/ADD - 120 mins </option>
+                            <option value="2">Aural Rehab - 120 mins</option>
+                            <option value="2">Feeding DX - 120 mins</option>
+                            <option value="2">SLP - 90 mins</option>
+                            <option value="2">EI Continuation DX - 60 mins</option>
+                            <option value="2">Fluency/Voice/Articulation - 60 mins</option>
+                            <option value="2">Artic - 30 mins</option>
+                            <option value="2">School Readiness Test - 30 mins</option>
+                        </select>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary flex-grow-1" data-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Psych Report -->
+        <div class="modal" id="PsychReport">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Psychology Report</h4>
+                        <button type="button" class="btn" data-dismiss="modal"><i
+                                class="fas fa-close fa-2x"></i></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+
+                        <h6>Service Description</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Psychology Intake
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                IQ Assesment: Stanford Binnet test
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <label class="form-check-label" for="">
+                                IQ Assesment: Wechsler test
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Social Maturity Scale
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                IQ Picture test
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                ADHD Test
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Autism Test
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Anxity and stress Test
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Depression Test
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Social phobia Test
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                OCD Test / Brown OCD Scale
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Self-esteem test
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Multiple personality test
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Eysenck personality questionnaire
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="">
+                            <label class="form-check-label" for="">
+                                Psychotherapy
+                            </label>
+                        </div>
+
+                        <br>
+                        <h6>Psychology Notes</h6>
+                        <textarea rows="4" cols="50"></textarea>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary flex-grow-1" data-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    </a>
+
+
     <!-- Navigation Bar part in Screen -->
     <div class="sidenav">
         <ul class="nav flex-column">
@@ -59,10 +363,10 @@
             </li>
 
             <!-- NAVIGATION BAR BUTTONS -->
-            <li class="nav-item active" id="myDIV">
-                <a href="#" onclick="myFunction()"><i class="fas fa-home fa-2x"></i></a>
+            <li class="nav-item " id="myDIV">
+                <a href="#"><i class="fas fa-home fa-2x"></i></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a href="#"><i class="fas fa-archive fa-2x"></i></a>
             </li>
             <li class="nav-item">
@@ -80,47 +384,6 @@
     <!-- Cointainer -->
     <div class="main">
         <div class="container d-flex flex-wrap justify-content-center">
-            <a class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
-                <!-- <button type="button" class="btn btn-light">New Patient <i class="fas fa-plus"></i></button>-->
-                <div class="container">
-                    <!-- Button to Open the Modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#myModal">
-                        New Report <i class="fas fa-plus"></i></button>
-                    <!-- The Modal -->
-                    <div class="modal" id="myModal">
-                        <div class="modal-dialog modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <!-- Modal Header -->
-                                <div class="modal-header">
-                                    <h4 class="modal-title">New Report</h4>
-                                <button type="button" class="btn" data-dismiss="modal"><i
-                                        class="fas fa-close fa-2x"></i></button>
-                                </div>
-                                <!-- Modal body -->
-                                <div class="modal-body">
-                                    <form class="popupwindow">
-                                        <label><strong>Report Type</strong></label><br>
-                                        <select class="form-select" aria-label="Default select example">
-                                        <option value="1">DX</option>
-                                        <option value="2">TX</option>
-                                    </select>
-                                    </form>
-                                </div>
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary flex-grow-1"
-                                    data-dismiss="modal">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                <script
-                    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-            </a>
 
             <div class="row">
                 <div class="pricing-column col-lg-4 col-md-2">
@@ -148,12 +411,12 @@
                     </div>
                 </div>
                 <div class="accordion" id="accordionExample">
-                    <pre
-                        class="tab"><strong>    Date                    Therapist                 Visit</strong></pre>
+                    <pre class="tab"><strong>    Date                    Therapist                 Visit</strong></pre>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+
                                 <pre
                                     class="tab">  11/14/2021                       Huda M.                       Session</pre>
                             </button>
@@ -162,6 +425,8 @@
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <strong></strong>
+                                <button type="button" class="btn btn-primary">
+                                    Upload Report <i class="fa fa-upload"></i></button>
                             </div>
                         </div>
                     </div>
@@ -177,6 +442,9 @@
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <strong></strong>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#DxReport">
+                                    DX Report <i class="fas fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
@@ -197,11 +465,12 @@
                                     <pre class="tab"> Fluency                                None </pre>
                                 </h7>
                                 <pre
-                                    class="tab"><h6><strong> Type of Dx                                        </strong></h6></pre>
-                                <pre
-                                    class="tab"><h7> Fluency/Voice/Articulation(60 minutes)      </h7></pre>
-                                <button type="button" class="btn btn-primary flex-grow-1"
-                                    data-dismiss="modal">Edit</button>
+                                    class="tab"><h6><strong> Type of Dx (Reccomendation)                                </strong></h6></pre>
+                                <pre class="tab"><h7> Fluency/Voice/Articulation(60 minutes)      </h7></pre>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#ConsultReport"> Edit Consult Report</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#PsychReport"> Psych Report <i class="fas fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
@@ -209,9 +478,10 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-        </script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                    crossorigin="anonymous">
+                </script>
 </body>
 
 </html>
