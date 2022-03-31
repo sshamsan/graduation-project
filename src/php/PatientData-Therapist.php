@@ -31,7 +31,7 @@ $row = mysqli_fetch_array($result);
 // Insert Consult Report to DB
     if(isset($_POST["Consultbutton"])){
         $consultarr=$_POST["Consult"];
-        $file_num = $_GET['id'];;
+        $file_num = $_GET['id'];
         $therapist='therapist1';
         $Type='Consult';
         $newvalues=  implode(",", $consultarr);
@@ -122,6 +122,25 @@ echo
     </script>';
 
 }
+
+// update record
+if (isset($_POST['save'])) {
+    echo 'ENTERED';
+    $file_num = $_GET['id'];
+$sql = "UPDATE patient 
+        SET National_ID='{$_POST['National_ID']}' 
+        , Gender='{$_POST['Gender']}'
+        , Birth_Date='{$_POST['Birth_Date']}'
+        , Phone_Number='{$_POST['Phone_Number']}'
+        , Address='{$_POST['PAddress']}'
+        WHERE file_number=$file_num";
+if ($con->query($sql) === TRUE) {
+    echo "Record updated successfully";
+  } else {
+    echo "Error updating record: " . $con->error;
+  }
+}
+
 ?>
     <header class="header">
         <div class="header-right">
@@ -473,16 +492,19 @@ echo
 
             <!-- NAVIGATION BAR BUTTONS -->
             <li class="nav-item " id="myDIV">
-                <a href="Homescreen.html" onclick="myFunction()"><i class="fas fa-home fa-2x"></i></a>
+                <a href="Homescreen.php" onclick="myFunction()"><i class="fas fa-home fa-2x"></i></a>
             </li>
             <li class="nav-item active">
-                <a href="#"><i class="fas fa-archive fa-2x"></i></a>
+                <a href="./PatientFile-admin.php"><i class="fas fa-archive fa-2x"></i></a>
             </li>
             <li class="nav-item">
-                <a href="Calendarscreen.html"><i class="fas fa-calendar-alt fa-2x"></i></a>
+                <a href="Calendarscreen.php"><i class="fas fa-calendar-alt fa-2x"></i></a>
             </li>
             <li class="nav-item">
                 <a href="#"><i class="fas fa-bell fa-2x"></i></a>
+            </li>
+            <li class="nav-item">
+                <a href="#"><i class="fa fa-gear fa-2x"></i></a>
             </li>
         </ul>
 
@@ -495,28 +517,50 @@ echo
         <div class="container d-flex flex-wrap justify-content-center">
 
             <div class="row">
+            <?php  
+               $result = mysqli_query($con,"SELECT * FROM patient WHERE file_number ='{$_GET['id']}'");
+               $row = mysqli_fetch_array($result);    
+            ?>
                 <div class="pricing-column col-lg-4 col-md-2">
                     <div class="card">
                         <div class="card-header">
-                            <h3><strong>Mohammed Abdullah</strong></h3>
-                            <p><strong>123456</strong></p>
+                            <h3><strong><?= $row['Name'] ?></strong></h3>
+                            <p><strong><?= $row['File_Number'] ?></strong></p>
+                            <form method="post">
+                            <button type="button" class="btn btn-primary flex-grow-1"
+                                onclick="toggle()">Edit</button>
+                            <button name="save" type="submit" class="btn btn-primary flex-grow-1"
+                                >Save</button>
+                                
                         </div>
+                        
                         <div class="card-body">
-                            <h8><strong>Payment Status</strong></h8><br>
-                            <h9>Complete</h9><br><br>
+                            <!-- <h8><strong>Payment Status</strong></h8><br>
+                            <h9>Complete</h9><br><br> -->
                             <h8><strong>National ID</strong></h8><br>
-                            <h9>1134875</h9><br><br>
+                            <input name="National_ID" type ="text" id="National_ID" value="<?= $row['National_ID'] ?>" disabled> <br><br>
                             <h8><strong>Gender</strong></h8><br>
-                            <h9>Male</h9><br><br>
+                            <input name="Gender" type ="text" id="Gender" value="<?= $row['Gender'] ?>" disabled> <br><br>
                             <h8><strong>Date of birth</strong></h8><br>
-                            <h9>11/14/2021</h9><br><br>
+                            <input name="Birth_Date" type ="date" id="Birth_Date" value="<?= $row['Birth_Date'] ?>" disabled> <br><br>
                             <h8><strong>Phone Number</strong></h8><br>
-                            <h9>1234567</h9><br><br>
+                            <input name="Phone_Number" type ="text" id="Phone_Number" value="<?= $row['Phone_Number'] ?>" disabled> <br><br>
                             <h8><strong>Email</strong></h8><br>
                             <h9>test123@gmail.com</h9><br><br>
-                            <h8><strong>City</strong></h8><br>
-                            <h9>Jeddah</h9><br><br>
+                            <h8><strong>Address</strong></h8><br>
+                            <input name="PAddress" type ="text" id="PAddress" value="<?= $row['Address'] ?>" disabled> <br><br>
                         </div>
+                        </form>
+                        <script>
+                        function toggle() {
+                             document.getElementById("National_ID").disabled = !document.getElementById("National_ID").disabled;
+                             document.getElementById("Gender").disabled = !document.getElementById("Gender").disabled;
+                             document.getElementById("Birth_Date").disabled = !document.getElementById("Birth_Date").disabled;
+                             document.getElementById("Phone_Number").disabled = !document.getElementById("Phone_Number").disabled;
+                             document.getElementById("PAddress").disabled = !document.getElementById("PAddress").disabled;
+                        }
+
+                        </script>
                     </div>
                 </div>
                 <div class="accordion" id="accordionExample">
@@ -531,7 +575,7 @@ echo
                                 data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 
                                 <pre
-                                    class="tab">  HHHH11/14/2021                       Huda M.                       Session</pre>
+                                    class="tab"> 11/14/2021                       Huda M.                       Session</pre>
                             </button>
                             <!-- OUTPUT DATA FROM DB -->
                         </h2>
@@ -575,7 +619,7 @@ echo
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                 <pre
-                                    class="tab">  11/14/2021                       Huda M.                       Consultaion</pre>
+                                    class="tab"> 11/14/2021                       Huda M.                       Consultaion</pre>
                             </button>
                         </h2>
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
