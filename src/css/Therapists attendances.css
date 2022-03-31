@@ -34,9 +34,9 @@
   }
   
   .main {
-    margin-left: 100px; /* Same as the width of the sidenav */
+    margin-left: 50px; /* Same as the width of the sidenav */
     font-size: 15px; /* Increased text to enable scrolling */
-    padding: 100px 20px;
+    padding: 0 20px;
     background-color: #e8f1f2;
     height: 1000px;  
   }
@@ -81,6 +81,3 @@
   align-items: center;
   }
 
-.btn-primary{
-  width: 260px;
-}
