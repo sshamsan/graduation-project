@@ -68,30 +68,29 @@ else
 
     <!-- Navigation Bar part in Screen -->
     <div class="sidenav">
-        <ul class="nav flex-column">
+      <ul class="nav flex-column">
+        <!-- LOGO -->
+        <li class="nav-item logo">
+            <img class="logo" src="../images/logo.png" alt="Jish logo">
+        </li>
 
-            <!-- LOGO -->
-            <li class="nav-item logo">
-                <img class="logo" src="../images/logo.png" alt="Jish logo">
-            </li>
-
-            <!-- NAVIGATION BAR BUTTONS -->
-            <li class="nav-item " id="myDIV">
-                <a href="#" onclick="myFunction()"><i class="fas fa-home fa-2x"></i></a>
-            </li>
-            <li class="nav-item">
-                <a href="./PatientData-Therapist.php"><i class="fas fa-archive fa-2x"></i></a>
-            </li>
-            <li class="nav-item active">
-                <a href=""><i class="fas fa-calendar-alt fa-2x"></i></a>
-            </li>
-            <li class="nav-item">
-                <a href="#"><i class="fas fa-bell fa-2x"></i></a>
-            </li>
-            <li class="nav-item ">
-                <a href="#"><i class="fa fa-gear fa-2x"></i></a>
-            </li>
-        </ul>
+        <!-- NAVIGATION BAR BUTTONS -->
+        <li class="nav-item " id="myDIV">
+            <a href="Homescreen.php" onclick="myFunction()"><i class="fas fa-home fa-2x"></i></a>
+        </li>
+        <li class="nav-item active">
+            <a href="./PatientFile-admin.php"><i class="fas fa-archive fa-2x"></i></a>
+        </li>
+        <li class="nav-item">
+            <a href="Calendarscreen.php"><i class="fas fa-calendar-alt fa-2x"></i></a>
+        </li>
+        <li class="nav-item">
+            <a href="#"><i class="fas fa-bell fa-2x"></i></a>
+        </li>
+        <li class="nav-item">
+            <a href="Settings.php"><i class="fas fa-gear fa-2x"></i></a>
+        </li>
+      </ul>
     </div>
     <!-- Rest of the screen -->
     <!-- Cointainer -->

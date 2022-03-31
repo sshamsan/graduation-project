@@ -127,7 +127,7 @@ if(isset($_POST["remove"])){
                 <a href="./Homescreen.php" onclick="myFunction()"><i class="fas fa-home fa-2x"></i></a>
             </li>
             <li class="nav-item">
-                <a href="./PatientData-Admin.php"><i class="fas fa-archive fa-2x"></i></a>
+                <a href="./PatientFile-Admin.php"><i class="fas fa-archive fa-2x"></i></a>
             </li>
             <li class="nav-item">
                 <a href="./Calendarscreen.php"><i class="fas fa-calendar-alt fa-2x"></i></a>
