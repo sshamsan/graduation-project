@@ -1,5 +1,5 @@
 <?php
-require_once ("../../config.php");
+require("../../config.php");
 $sql = "SELECT Therapist_Name,Appointment_Date FROM appointment";
 $result = mysqli_query($con,$sql); 
 $myArray = array();
