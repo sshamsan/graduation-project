@@ -60,7 +60,7 @@ else
 
                 <!-- Drop down menu -->
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <li><button class="dropdown-item" type="submit"><?php session_destroy(); ?><a href="../../index.php">Log out</a></button></li>
+                    <li><button class="dropdown-item" type="submit"><a href="logout.php">Log out</a></button></li>
                 </ul>
             </div>
         </div>
