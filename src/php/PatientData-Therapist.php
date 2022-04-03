@@ -31,35 +31,29 @@ $row = mysqli_fetch_array($result);
 <?php
 // Insert Consult Report to DB
     if(isset($_POST["Consultbutton"])){
-        $consultarr=$_POST["Consult"];
+        $Suspected= implode(",",$_POST["Suspected"]);
+        $disorder=implode(",",$_POST["disorder"]);
+        $Rec=implode(",",$_POST["Rec"]);
+        $newvalues= $Suspected.",".$disorder.",".$Rec;
+        //print_r($consultarr);
         $file_num = $_GET['id'];
         $therapist='therapist1';
         $Type='Consult';
-        $newvalues=  implode(",", $consultarr);
+        //$newvalues=  implode(",",$disorder,$Rec);
         $checkEntries = mysqli_query($con,"SELECT * FROM reports WHERE File_Number='$file_num' AND Type='$Type' ");
         if(mysqli_num_rows($checkEntries) == 0){
             $res = mysqli_query($con, "INSERT INTO reports (File_Number, Report_Recommandation, therapist_name, Type)
             VALUES ('$file_num','$newvalues','$therapist','$Type')");
-            echo  
-            '   
-                <script>
-                alert("Report Saved Sucesssfully");
-                </script>
-                ';
+            
+            echo ' <script> alert("Report Saved Sucesssfully"); </script>';
+
         }elseif(mysqli_num_rows($checkEntries) != 0){
-          mysqli_query($con,"UPDATE reports SET Report_Recommandation='".$newvalues."' ");
-          echo '
-          <script>
-          alert("Report Updated Sucesssfully");
-          </script>
-          ';
+          mysqli_query($con,"UPDATE reports SET Report_Recommandation='".$newvalues."' WHERE File_Number='$file_num' AND Type='$Type' ");
+          
+          echo ' <script> alert("Report Updated Sucesssfully"); </script>  ';
         }
         else {
-            echo '
-                <script>
-                alert("Insertion Unuscesssful");
-                </script>
-                ';
+            echo ' <script> alert("Insertion Unuscesssful"); </script>';
         }
     }
 // Insert Pysch Report to DB
@@ -67,33 +61,23 @@ $row = mysqli_fetch_array($result);
         $psycharr=$_POST["Psych"];
         $file_num =$_GET['id']; ;
         $therapist='therapist1';
-        $Type='TX';//take type from visit in treatment session
+        $Type='Psychology';//take type from visit in treatment session
         $newvalues=  implode(",", $psycharr);
-        
+        $textareaValue = trim($_POST['PsychNote']);
+        $newvalues=$newvalues." ".$textareaValue;
         $checkEntries = mysqli_query($con,"SELECT * FROM reports WHERE File_Number='$file_num' AND Type='$Type' ");
         if(mysqli_num_rows($checkEntries) == 0){
             $res = mysqli_query($con, "INSERT INTO reports (File_Number, Report_Recommandation, therapist_name, Type)
             VALUES ('$file_num','$newvalues','$therapist','$Type')");
-            echo  
-            '   
-                <script>
-                alert("Report Saved Sucesssfully");
-                </script>
-                ';
+            
+            echo  ' <script> alert("Report Saved Sucesssfully"); </script> ';
         }elseif(mysqli_num_rows($checkEntries) != 0){
-          mysqli_query($con,"UPDATE reports SET Report_Recommandation='".$newvalues."' ");
-          echo '
-          <script>
-          alert("Report Updated Sucesssfully");
-          </script>
-          ';
+          mysqli_query($con,"UPDATE reports SET Report_Recommandation='".$newvalues."' WHERE File_Number='$file_num' AND Type='$Type'");
+         
+          echo '<script> alert("Report Updated Sucesssfully"); </script> ';
         }
         else {
-            echo '
-                <script>
-                alert("Insertion Unuscesssful");
-                </script>
-                ';
+            echo '<script> alert("Insertion Unuscesssful"); </script> ';
         }
     }
 
@@ -116,11 +100,7 @@ $query= mysqli_query($con,"INSERT INTO upload (name, size, type, content, upload
 "VALUES ('$fileName', '$fileSize', '$fileType', '$content','$uploaded_date','$file_num')");
 
 echo "<br>File $fileName uploaded<br>";
-echo  
-'   
-    <script>
-    alert("File $fileName uploaded");
-    </script>';
+echo ' <script> alert("File $fileName uploaded"); </script>';
 
 }
 
@@ -226,7 +206,9 @@ if ($con->query($sql) === TRUE) {
             </div>
         </div>
 
+ <!-- ############################################################################################### -->
         <!-- Consult Report -->
+   
         <div class="modal" id="ConsultReport">
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
@@ -237,49 +219,48 @@ if ($con->query($sql) === TRUE) {
                                 class="fas fa-close fa-2x"></i></button>
                     </div>
                     <!-- Modal body -->
-                <form method="post">
                 <div class="modal-body">
+                 <form method="post">
                         <!-- <form class="popupwindow"> -->
-                        
                         <h6>Suspected Area</h6>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="Fluency" id="Fluency">
+                            <input name="Suspected[]" class="form-check-input" type="checkbox" value="Fluency" id="Fluency">
                             <label class="form-check-label" for="">
                                 Fluency
                             </label>
                         </div>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="Voice" id="Voice">
+                            <input name="Suspected[]" class="form-check-input" type="checkbox" value="Voice" id="Voice">
                             <label class="form-check-label" for="">
                                 Voice
                             </label>
                         </div>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="Articulation" id="Articulation">
+                            <input name="Suspected[]" class="form-check-input" type="checkbox" value="Articulation" id="Articulation">
                             <label class="form-check-label" for="">
                                 Articulation
                             </label>
                         </div>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="Language" id="Language">
+                            <input name="Suspected[]" class="form-check-input" type="checkbox" value="Language" id="Language">
                             <label class="form-check-label" for="">
                                 Language
                             </label>
                         </div>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="Behavior" id="Behavior">
+                            <input name="Suspected[]" class="form-check-input" type="checkbox" value="Behavior" id="Behavior">
                             <label class="form-check-label" for="">
                                 Behavior
                             </label>
                         </div>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="Swallowing" id="Swallowing">
+                            <input name="Suspected[]" class="form-check-input" type="checkbox" value="Swallowing" id="Swallowing">
                             <label class="form-check-label" for="">
                                 Swallowing
                             </label>
                         </div>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="Feeding" id="Feeding">
+                            <input name="Suspected[]" class="form-check-input" type="checkbox" value="Feeding" id="Feeding">
                             <label class="form-check-label" for="">
                                 Feeding
                             </label>
@@ -288,60 +269,57 @@ if ($con->query($sql) === TRUE) {
                         <br>
                         <h6>Other disorder</h6>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="Hearing" id="Hearing">
+                            <input name="disorder[]" class="form-check-input" type="checkbox" value="Hearing" id="Hearing">
                             <label class="form-check-label" for="">
                                 Hearing
                             </label>
                         </div>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="CP" id="CP">
+                            <input name="disorder[]" class="form-check-input" type="checkbox" value="CP" id="CP">
                             <label class="form-check-label" for="">
                                 CP
                             </label>
                         </div>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="Syndromic" id="Syndromic">
+                            <input name="disorder[]" class="form-check-input" type="checkbox" value="Syndromic" id="Syndromic">
                             <label class="form-check-label" for="">
                                 Syndromic
                             </label>
                         </div>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="Neurogenic (Aphasia)" id="Neurogenic (Aphasia)">
+                            <input name="disorder[]" class="form-check-input" type="checkbox" value="Neurogenic (Aphasia)" id="Neurogenic (Aphasia)">
                             <label class="form-check-label" for="">
                                 Neurogenic (Aphasia)
                             </label>
                         </div>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="ASD" id="ASD">
+                            <input name="disorder[]" class="form-check-input" type="checkbox" value="ASD" id="ASD">
                             <label class="form-check-label" for="">
                                 ASD
                             </label>
                         </div>
                         <div class="form-check">
-                            <input name="Consult[]" class="form-check-input" type="checkbox" value="ADD/ADHD" id="ADD/ADHD">
+                            <input name="disorder[]" class="form-check-input" type="checkbox" value="ADD/ADHD" id="ADD/ADHD">
                             <label class="form-check-label" for="">
                                 ADD/ADHD
                             </label>
                         </div>
-
-
-                        <!-- </form> -->
                         <br>
                         <h6>Reccomendation</h6>
-                        <select method="post"class="form-select" aria-label="Default select example">
-                            <option id="ABA" name="Consult[]" value="ABA">ABA</option>
-                            <option id="EI DX" name="Consult[]" value="EI DX Early Intervention - 180 mins">EI DX Early Intervention - 180 mins </option>
-                            <option id="English DX" name="Consult[]" value="English DX (90 mins each session) / Bilingual (2 hours + 1 hour)">English DX (90 mins each session) / Bilingual (2 hours + 1 hour) </option>
-                            <option id="Nuerogenic" name="Consult[]" value="Nuerogenic (90 mins each session)">Nuerogenic (90 mins each session)</option>
-                            <option id="Speach" name="Consult[]" value="Speach language delay - 120 mins">Speach language delay - 120 mins</option>
-                            <option id="ADHD/ASD/ADD" name="Consult[]" value="ADHD/ASD/ADD - 120 mins ">ADHD/ASD/ADD - 120 mins </option>
-                            <option id="Aural" name="Consult[]" value="Aural Rehab - 120 mins">Aural Rehab - 120 mins</option>
-                            <option id="Feeding" name="Consult[]" value="Feeding DX - 120 mins">Feeding DX - 120 mins</option>
-                            <option id="SLP" name="Consult[]" value="SLP - 90 mins">SLP - 90 mins</option>
-                            <option id="EI" name="Consult[]" value="EI Continuation DX - 60 mins">EI Continuation DX - 60 mins</option>
-                            <option id="Fluency" name="Consult[]" value="Fluency/Voice/Articulation - 60 mins">Fluency/Voice/Articulation - 60 mins</option>
-                            <option id="Artic" name="Consult[]" value="Artic - 30 mins">Artic - 30 mins</option>
-                            <option id="School" name="Consult[]" value="School Readiness Test - 30 mins">School Readiness Test - 30 mins</option>
+                        <select name="Rec[]" class="form-select">
+                            <option id="ABA" value="ABA">ABA</option>
+                            <option id="EI DX" value="EI DX Early Intervention - 180 mins">EI DX Early Intervention - 180 mins </option>
+                            <option id="English DX" value="English DX (90 mins each session) / Bilingual (2 hours + 1 hour)">English DX (90 mins each session) / Bilingual (2 hours + 1 hour) </option>
+                            <option id="Nuerogenic" value="Nuerogenic (90 mins each session)">Nuerogenic (90 mins each session)</option>
+                            <option id="Speach" value="Speach language delay - 120 mins">Speach language delay - 120 mins</option>
+                            <option id="ADHD/ASD/ADD" value="ADHD/ASD/ADD - 120 mins ">ADHD/ASD/ADD - 120 mins </option>
+                            <option id="Aural" value="Aural Rehab - 120 mins">Aural Rehab - 120 mins</option>
+                            <option id="Feeding" value="Feeding DX - 120 mins">Feeding DX - 120 mins</option>
+                            <option id="SLP" value="SLP - 90 mins">SLP - 90 mins</option>
+                            <option id="EI" value="EI Continuation DX - 60 mins">EI Continuation DX - 60 mins</option>
+                            <option id="Fluency" value="Fluency/Voice/Articulation - 60 mins">Fluency/Voice/Articulation - 60 mins</option>
+                            <option id="Artic" value="Artic - 30 mins">Artic - 30 mins</option>
+                            <option id="School" value="School Readiness Test - 30 mins">School Readiness Test - 30 mins</option>
                         </select>
 
                     </div>
@@ -464,7 +442,10 @@ if ($con->query($sql) === TRUE) {
 
                         <br>
                         <h6>Psychology Notes</h6>
-                        <textarea rows="4" cols="50" name="Psych[]" id="Psychology Notes"></textarea>
+                        <!-- <textarea rows="4" cols="50" name="Psych[]" id="Psychology Notes"></textarea> -->
+                        <textarea name="PsychNote">
+                         <?php echo isset($_POST['PsychNote']) ? htmlspecialchars($_POST['PsychNote'], ENT_QUOTES) : ''; ?>
+                        </textarea>
 
                     </div>
                     <!-- Modal footer -->
@@ -549,14 +530,14 @@ if ($con->query($sql) === TRUE) {
                             <h8><strong>Address</strong></h8><br>
                             <input name="PAddress" type ="text" id="PAddress" value="<?= $row['Address'] ?>" disabled> <br><br>
                         </div>
-                        <?php if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?>
+                        <?php// if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?>
                         <div>
                         <button type="button" class="btn btn-primary flex-grow-1"
                                 onclick="toggle()">Edit</button>
                             <button name="save" type="submit" class="btn btn-primary flex-grow-1"
                                 >Save</button>
                         </div>
-                        <?php } ?>
+                        <?php //} ?>
                         </form>
                         <script>
                         function toggle() {
@@ -582,7 +563,7 @@ if ($con->query($sql) === TRUE) {
                                 data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 
                                 <pre
-                                    class="tab">   <?php echo $row['Appointment_Date'];?>                       <?php print $row['Therapist_Name'];?>             <?php print $row['type'];?></pre>
+                                    class="tab"> <?php echo $row['Appointment_Date'];?>                       <?php print $row['Therapist_Name'];?>             <?php print $row['type'];?></pre>
                             </button>
                             
                             <!-- OUTPUT DATA FROM DB -->
@@ -591,7 +572,7 @@ if ($con->query($sql) === TRUE) {
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <strong></strong>
-                                <?php if($_SESSION['log1']=='Therapist'){?>
+                                <?php //if($_SESSION['log1']=='Therapist'){?>
                                 <form  method="post" enctype="multipart/form-data">
                                     <input name="userfile" type="file" id="actual-btn" onchange="this.form.submit()" hidden/>
                                     <label  for="actual-btn" class="btn btn-primary">Upload Report <i class="fa fa-upload"></i></label>
@@ -602,7 +583,7 @@ if ($con->query($sql) === TRUE) {
                                         <button class="btn btn-primary"><a id=link  href="download.php?id=<?=$_GET['id']?>&date=<?=$uploaded_date;?>">Download</a></button>                                       
                                         
                                  </form>
-                                 <?php }?>
+                                 <?php //}?>
                             </div>
                         </div>
                     </div>
@@ -618,14 +599,15 @@ if ($con->query($sql) === TRUE) {
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <strong></strong>
-                                <?php if($_SESSION['log1']=='Therapist'){?>
+                                <?php //if($_SESSION['log1']=='Therapist'){?>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#DxReport">
                                     DX Report <i class="fas fa-plus"></i></button>
-                                <?php } ?>
+                                <?php// } ?>
                             </div>
                         </div>
                     </div>
+
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingThree">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -640,17 +622,17 @@ if ($con->query($sql) === TRUE) {
                                 <pre
                                     class="tab"><h6><strong> Suspected Area                            Other Disorder </strong></h6></pre>
                                 <h7>
-                                    <pre class="tab"> Fluency                                None </pre>
+                                    <pre class="tab"> <?php echo $_POST['disorder'] ?>                                None </pre>
                                 </h7>
                                 <pre
                                     class="tab"><h6><strong> Type of Dx (Reccomendation)                                </strong></h6></pre>
                                 <pre class="tab"><h7> Fluency/Voice/Articulation(60 minutes)      </h7></pre>
-                                <?php if($_SESSION['log1']=='Therapist'){?>
+                                <?php //if($_SESSION['log1']=='Therapist'){?>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#ConsultReport"> Edit Consult Report</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#PsychReport"> Psych Report <i class="fas fa-plus"></i></button>
-                                    <?php } ?>
+                                    <?php //} ?>
                             </div>
                         </div>
                     </div>
@@ -687,4 +669,18 @@ document.addEventListener("DOMContentLoaded", function(){
    }
 });
 </script>
+
+<script>
+$(function() {
+    if (localStorage.getItem('Consult[]')) {
+        $("#Consult[] option").eq(localStorage.getItem('Consult[]')).prop('selected', true);
+    }
+
+    $("#Consult[]").on('change', function() {
+        localStorage.setItem('Consult[]', $('option:selected', this).index());
+    });
+});
+</script>
+
+
 </html>

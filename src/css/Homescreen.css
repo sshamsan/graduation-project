@@ -289,7 +289,7 @@ p {
   margin-bottom: 20px;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: black;
+input [type=date] {
+  width:50px;
+  font-size: 10px;
 }
-

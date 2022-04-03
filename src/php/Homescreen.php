@@ -11,6 +11,7 @@ require_once ("../../appslots.php");
     </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
 
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -55,35 +56,35 @@ if ($res == 1) {
   }
 }     
 
-if (isset($_POST['Appointment'])) {
-$Patient = $_POST['patient'];
-$Therapist = $_POST['therapist'];
-$Date = $_POST['date'];
-$Time = $_POST['time'];
-$Type = $_POST['type'];
-$Payment_Status = 'unpaid';
-$file_num = '111';
-$emp_id = '102';
-$res;
-//print_r( $_POST['time']);
-$res = mysqli_query($con, "INSERT INTO appointment (Therapist_Name , Payment_Status, Appointment_Time, Appointment_Date, file_number,employee_id,Type)
-VALUES ('$Therapist','$Payment_Status','$Time','$Date','$file_num','$emp_id','$Type')");
-if ($res == 1) {
-  echo  
-  '   
-      <script>
-      alert("Appointment Booked Sucesssfully");
-      </script>
-      ';
+// if (isset($_POST['Appointment'])) {
+// $Patient = $_POST['patient'];
+// $Therapist = $_POST['therapist'];
+// $Date = $_POST['date'];
+// $Time = $_POST['time'];
+// $Type = $_POST['type'];
+// $Payment_Status = 'unpaid';
+// $file_num = '111';
+// $emp_id = '102';
+// $res;
+// //print_r( $_POST['time']);
+// $res = mysqli_query($con, "INSERT INTO appointment (Therapist_Name , Payment_Status, Appointment_Time, Appointment_Date, file_number,employee_id,Type)
+// VALUES ('$Therapist','$Payment_Status','$Time','$Date','$file_num','$emp_id','$Type')");
+// if ($res == 1) {
+//   echo  
+//   '   
+//       <script>
+//       alert("Appointment Booked Sucesssfully");
+//       </script>
+//       ';
 
-  } else {
-      echo '
-          <script>
-          alert("Insertion Unuscesssful");
-          </script>
-          ';
-  }
-}     
+//   } else {
+//       echo '
+//           <script>
+//           alert("Insertion Unuscesssful");
+//           </script>
+//           ';
+//   }
+// }     
 ?>
 
 <?php
@@ -107,9 +108,9 @@ $emp_id = '103';
 $records = mysqli_query($con,"SELECT * from appointment where Appointment_date = '$Date' AND employee_id = '$emp_id'");
     while ($row = mysqli_fetch_array($records)){
         $Time=$row['Appointment_Time'];
-        $booked=array_search($Time,$checkArr);//provide the value
+        $booked=array_search($Time,$checkArr);
         
-        unset($timeslots[$booked]);//provide the key not the value ///// its always deleting the first index!!
+        unset($timeslots[$booked]);
         
     }
 }
@@ -224,7 +225,7 @@ if($stmt->execute()){
                 <div>
                     <h2>Today's Appointments</h2>
                 </div>
-                <?php if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?>
+                <!-- <?php //if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?> -->
                 <div>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newAppt">New
                         Appointment <i class="fa fa-plus"></i></button>
@@ -233,7 +234,7 @@ if($stmt->execute()){
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newIntake">New
                         Intake <i class="fa fa-plus base"></i></button>
                 </div>
-                <?php } ?>
+                <!-- <?php //} ?> -->
             </div>
 
 
@@ -262,12 +263,13 @@ if($stmt->execute()){
                                         </form>
                                         <ul class="list-unstyled mb-0">
                                         <?php
-                                        $records = mysqli_query($con,"SELECT Name, File_Number FROM patient");
-                                        while ($row = mysqli_fetch_array($records)){
-                                            echo "<option value=\"". $row['Name'] ."\">". $row['Name'] ."</option>";                                            
-                                           // FIX NAME OUTPUT
-                                        ?>
-                                            <li><button class="dropdown-item" type="button"><?php $row['Name']?></button></li>
+                                         $records = mysqli_query($con,"SELECT Name, File_Number FROM patient");
+                                         while ($row = mysqli_fetch_array($records)){
+                                                //echo "<option value=\"". $row['Name'] ."\">". $row['Name'] ."</option>";                                            
+                                                echo "<button class=\"dropdown-item\" type=\"button\">".$row['Name']."</button>";
+                                        //    // SAVE SELECTED NAME
+                                        // ?>
+                                            <!-- <li><button class="dropdown-item" type="button">"<?php //$row['Name']?>"</button></li> -->
                                             <?php
                                             }
                                             ?>
@@ -302,7 +304,10 @@ if($stmt->execute()){
                                         <option value="1">Monday, 2 Feb, 2-3 pm</option>
                                         <option value="1">Monday, 2 Feb, 3-4 pm</option>
                                         <option value="1">Monday, 2 Feb, 4-5 pm</option>
-                                    </select>  -->
+                                    </select>  -->  
+                                    <!-- <label>Choose Appointment Date -->
+                                    <input type="date" class="date"/>
+                                    
                                     <select name="time" class="form-select" aria-label="Default select example">
                                             <option value="" disabled selected hidden>Choose Appointment Time</option>
                                                 <?php
@@ -311,7 +316,7 @@ if($stmt->execute()){
                                                         }?>
                                     </select> 
                                     <br>
-                                    <button name ="BAppointment" type="submit" class="btn btn-primary flex-grow-1"
+                                    <button name ="Book" type="submit" class="btn btn-primary flex-grow-1"
                                         >Save</button> 
                                         <!-- FIX SUBMIT ISSUE -->
                                 </form>
@@ -361,15 +366,17 @@ if($stmt->execute()){
                                                             echo "<option value=\"". $ts ."\">". $ts ."</option>"; 
                                                         }?>
                                     </select> 
+                                    <input type="date" class="date" name="date"/>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer d-flex">
+                                    <button name="Intake" type="submit" class="flex-grow-1 btn btn-primary"
+                                                >Save</button>
+                                    </div>
                                 </form>
 
                             </div>
 
-                            <!-- Modal footer -->
-                            <div class="modal-footer d-flex">
-                            <button name="Intake" type="submit" class="flex-grow-1 btn btn-primary"
-                                        >Save</button>
-                            </div>
+                          
                         </div>
                     </div>
                 </div>
