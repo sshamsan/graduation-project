@@ -88,35 +88,21 @@ if ($res == 1) {
 ?>
 
 <?php
-//create slots
-$timeslots = timeslots($duration, $cleanup, $start, $end);
-$checkArr = array();
-
-//create check array 
-foreach($timeslots as $t){
-$t=substr($t,0,5);
-$t=strtotime($t);
-$t=date("h:i:s",$t);
-array_push($checkArr,$t) ;
-}
-//$AppStart = $timeslot[1];
 
 // output the available appointments
-if (isset($_POST['BAppointment'])) { 
+if (isset($_POST['B'])) { 
 $Date = $_POST['date'];
 $emp_id = '103';
 $records = mysqli_query($con,"SELECT * from appointment where Appointment_date = '$Date' AND employee_id = '$emp_id'");
     while ($row = mysqli_fetch_array($records)){
         $Time=$row['Appointment_Time'];
         $booked=array_search($Time,$checkArr);
-        
-        unset($timeslots[$booked]);
-        
+        unset($timeslots[$booked]);    
     }
 }
 
 // insert appoitnment into db
-if (isset($_POST['Book'])) {
+if (isset($_POST['ok'])) {
 $Patient = $_POST['patient'];
 $Therapist =$_POST['therapist'];
 $Date = $_POST['date'];
@@ -125,25 +111,23 @@ $Type = $_POST['type'];
 $Payment_Status = 'unpaid';
 //$file_num = '111';
 $emp_id = '103';
-$res;
 
-// // checks if appointment is available or not 
-$stmt = $con->prepare("SELECT * from appointment where Appointment_date = '$Date' AND employee_id = '$emp_id' AND  Appointment_Time = '$Time'");
-//$stmt->bind_param($Date, $emp_id,$Time);// takes the input date and sends it to the database
-if($stmt->execute()){
-   $result = $stmt->get_result();
-   if($result->num_rows>0){
-       echo  
-       ' <script> alert("Already Booked"); </script>';
-       //$msg = "<div class='alert alert-danger'></div>";
-
-   }else{
+// // // checks if appointment is available or not 
+// $stmt = $con->prepare("SELECT * from appointment where Appointment_date = '$Date' AND employee_id = '$emp_id' AND  Appointment_Time = '$Time'");
+// //$stmt->bind_param($Date, $emp_id,$Time);// takes the input date and sends it to the database
+// if($stmt->execute()){
+//    $result = $stmt->get_result();
+//    if($result->num_rows>0){
+//        echo  
+//        ' <script> alert("Already Booked"); </script>';
+//        //$msg = "<div class='alert alert-danger'></div>";
+//    }else{
        $res = mysqli_query($con, "INSERT INTO appointment (Therapist_Name , Payment_Status, Appointment_Time, Appointment_Date, file_number,employee_id)
        VALUES ('$Therapist','$Payment_Status','$Time','$Date','$Patient','$emp_id')");
        unset($timeslots[array_search($Time,$timeslots)]);
    }
-}
-}
+//}
+//}
 ?>
 
     <header class="header">
@@ -250,24 +234,22 @@ if($stmt->execute()){
                             </div>
                             <div class="modal-body">
                                 <form class="popupwindow d-flex flex-column" method="post">
-
+                                    
                                     <!-- Patient ID: Dropdown menu -->
                                     <button name="patient" type="button" class="form-select" id="test1" data-bs-toggle="dropdown"
                                         aria-expanded="false">Patient</button>
-
                                     <div class="dropdown-menu pt-0 mx-0 rounded-3 shadow overflow-hidden"
                                         aria-labelledby="test1" style="width: 280px;">
-                                        <form class="p-2 mb-2 bg-light border-bottom">
+                                        <!-- <form class="p-2 mb-2 bg-light border-bottom" method="post"> -->
                                             <input type="search" class="form-control" autocomplete="false"
                                                 placeholder="Type to filter...">
-                                        </form>
+                                        <!-- </form> -->
                                         <ul class="list-unstyled mb-0">
                                         <?php
                                          $records = mysqli_query($con,"SELECT Name, File_Number FROM patient");
-                                         while ($row = mysqli_fetch_array($records)){
-                                                //echo "<option value=\"". $row['Name'] ."\">". $row['Name'] ."</option>";                                            
+                                         while ($row = mysqli_fetch_array($records)){                                           
                                                 echo "<button class=\"dropdown-item\" type=\"button\">".$row['Name']."</button>";
-                                        //    // SAVE SELECTED NAME
+                                        //    // SAVE SELECTED NAME and value 
                                         // ?>
                                             <!-- <li><button class="dropdown-item" type="button">"<?php //$row['Name']?>"</button></li> -->
                                             <?php
@@ -289,13 +271,12 @@ if($stmt->execute()){
                                     ?>
                                     </select>
                                     <br>
-                                    <!-- <input class="form-control" type="datetime-local" placeholder="Date&time">
-                                    <br> -->
                                     <select name="type" class="form-select" aria-label="Default select example">
                                         <option value="" disabled selected hidden>Choose Appointment Type</option>
                                         <option value="DX">DX (Diagnosis Session)</option>
                                         <option value="TX">TX (Treatment Session)</option>
                                     </select>
+                                    <br>
                                     <br>
 
                                     <!-- <select class="form-select" aria-label="Default select example"
@@ -306,24 +287,23 @@ if($stmt->execute()){
                                         <option value="1">Monday, 2 Feb, 4-5 pm</option>
                                     </select>  -->  
                                     <!-- <label>Choose Appointment Date -->
-                                    <input type="date" class="date"/>
-                                    
+                                    <input type="date" name="date"/><br><br>
+                                    <div class="modal-footer">
+                                         <button name="ok" type="submit" class="btn btn-primary flex-grow-1">Save</button>
+                                    </div>
+                                        <!-- FIX SUBMIT ISSUE -->
+                                    </form>
+                                    <form method="post">
                                     <select name="time" class="form-select" aria-label="Default select example">
                                             <option value="" disabled selected hidden>Choose Appointment Time</option>
                                                 <?php
-                                                        foreach($timeslots as $ts){ 
-                                                            echo "<option value=\"". $ts ."\">". $ts ."</option>"; 
-                                                        }?>
+                                                       foreach($timeslots as $ts){ 
+                                                           echo "<option value=\"". $ts ."\">". $ts ."</option>"; 
+                                                       }?>
                                     </select> 
+                                    </form>
                                     <br>
-                                    <button name ="Book" type="submit" class="btn btn-primary flex-grow-1"
-                                        >Save</button> 
-                                        <!-- FIX SUBMIT ISSUE -->
-                                </form>
-                            </div>
-                            <div class="modal-footer d-flex">
-                                <!-- <button type="button" class="btn btn-primary flex-grow-1"
-                                    data-dismiss="modal">Save</button> -->
+                                  
                             </div>
                         </div>
                     </div>

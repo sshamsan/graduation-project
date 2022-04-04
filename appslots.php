@@ -28,4 +28,15 @@ function timeslots($duration, $cleanup, $start, $end){
     return $slots; // creates array of appointment slots
 }
 
- 
+//create slots
+$timeslots = timeslots($duration, $cleanup, $start, $end);
+$checkArr = array();
+
+//create check array 
+foreach($timeslots as $t){
+$t=substr($t,0,5);
+$t=strtotime($t);
+$t=date("h:i:s",$t);
+array_push($checkArr,$t) ;
+}
+?>
