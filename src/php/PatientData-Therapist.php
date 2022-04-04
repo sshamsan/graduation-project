@@ -35,18 +35,15 @@ $row = mysqli_fetch_array($result);
         $disorder=implode(",",$_POST["disorder"]);
         $Rec=implode(",",$_POST["Rec"]);
         $newvalues= $Suspected.",".$disorder.",".$Rec;
-        //print_r($consultarr);
         $file_num = $_GET['id'];
         $therapist='therapist1';
         $Type='Consult';
-        //$newvalues=  implode(",",$disorder,$Rec);
         $checkEntries = mysqli_query($con,"SELECT * FROM reports WHERE File_Number='$file_num' AND Type='$Type' ");
         if(mysqli_num_rows($checkEntries) == 0){
             $res = mysqli_query($con, "INSERT INTO reports (File_Number, Report_Recommandation, therapist_name, Type)
             VALUES ('$file_num','$newvalues','$therapist','$Type')");
-            
             echo ' <script> alert("Report Saved Sucesssfully"); </script>';
-
+            list($Report_Recommandation) = mysqli_fetch_array($res);
         }elseif(mysqli_num_rows($checkEntries) != 0){
           mysqli_query($con,"UPDATE reports SET Report_Recommandation='".$newvalues."' WHERE File_Number='$file_num' AND Type='$Type' ");
           
@@ -56,6 +53,8 @@ $row = mysqli_fetch_array($result);
             echo ' <script> alert("Insertion Unuscesssful"); </script>';
         }
     }
+
+
 // Insert Pysch Report to DB
     if(isset($_POST["PsychButton"])){
         $psycharr=$_POST["Psych"];
@@ -106,7 +105,6 @@ echo ' <script> alert("File $fileName uploaded"); </script>';
 
 // update record
 if (isset($_POST['save'])) {
-   // echo 'ENTERED';
     $file_num = $_GET['id'];
 $sql = "UPDATE patient 
         SET National_ID='{$_POST['National_ID']}' 
@@ -307,6 +305,7 @@ if ($con->query($sql) === TRUE) {
                         <br>
                         <h6>Reccomendation</h6>
                         <select name="Rec[]" class="form-select">
+                            <option value="<?php echo $Rec;?>" hidden><?php echo $Rec;?></option>
                             <option id="ABA" value="ABA">ABA</option>
                             <option id="EI DX" value="EI DX Early Intervention - 180 mins">EI DX Early Intervention - 180 mins </option>
                             <option id="English DX" value="English DX (90 mins each session) / Bilingual (2 hours + 1 hour)">English DX (90 mins each session) / Bilingual (2 hours + 1 hour) </option>
@@ -530,14 +529,14 @@ if ($con->query($sql) === TRUE) {
                             <h8><strong>Address</strong></h8><br>
                             <input name="PAddress" type ="text" id="PAddress" value="<?= $row['Address'] ?>" disabled> <br><br>
                         </div>
-                        <?php// if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?>
+                        <?php if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?>
                         <div>
                         <button type="button" class="btn btn-primary flex-grow-1"
                                 onclick="toggle()">Edit</button>
                             <button name="save" type="submit" class="btn btn-primary flex-grow-1"
                                 >Save</button>
                         </div>
-                        <?php //} ?>
+                        <?php } ?>
                         </form>
                         <script>
                         function toggle() {
@@ -551,28 +550,31 @@ if ($con->query($sql) === TRUE) {
                         </script>
                     </div>
                 </div>
+
+                <!-- START OF ACCORDION TITLES -->
                 <div class="accordion" id="accordionExample">
                     <pre class="tab"><strong>    Date                    Therapist                 Visit</strong></pre>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
+                    
+                    <!-- START OF ACCORDION ITEM -->
                         <?php  
+                            $i=0;
                             $result = mysqli_query($con,"SELECT * FROM appointment WHERE file_number ='{$_GET['id']}'");
-                            $row = mysqli_fetch_array($result);  
-                        ?>
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-
+                            while($row = mysqli_fetch_array($result)){ 
+                                $i=$i+1; 
+                        ?> 
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading<?php echo "$i" ?>">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse<?php echo "$i"?>" aria-expanded="false" aria-controls="collapse<?php echo "$i"?>">
                                 <pre
-                                    class="tab"> <?php echo $row['Appointment_Date'];?>                       <?php print $row['Therapist_Name'];?>             <?php print $row['type'];?></pre>
+                                    class="tab"> <?php echo $row['Appointment_Date'];?>                       <?php print $row['Therapist_Name'];?>                       <?php print $row['type'];?></pre>
                             </button>
-                            
-                            <!-- OUTPUT DATA FROM DB -->
                         </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        <div id="collapse<?php echo "$i"?>" class="accordion-collapse collapse" aria-labelledby="heading<?php echo "$i"?>"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <strong></strong>
-                                <?php //if($_SESSION['log1']=='Therapist'){?>
+                                <?php if($_SESSION['log1']=='Therapist'){?>
                                 <form  method="post" enctype="multipart/form-data">
                                     <input name="userfile" type="file" id="actual-btn" onchange="this.form.submit()" hidden/>
                                     <label  for="actual-btn" class="btn btn-primary">Upload Report <i class="fa fa-upload"></i></label>
@@ -583,27 +585,30 @@ if ($con->query($sql) === TRUE) {
                                         <button class="btn btn-primary"><a id=link  href="download.php?id=<?=$_GET['id']?>&date=<?=$uploaded_date;?>">Download</a></button>                                       
                                         
                                  </form>
-                                 <?php //}?>
+                                 <?php }?>
                             </div>
                         </div>
+                        <?php } ?>
                     </div>
+                    
+                    <!-- ###################################################### -->
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
+                        <h2 class="accordion-header" id="100">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                data-bs-target="#collapse100" aria-expanded="false" aria-controls="collapse100">
                                 <pre
                                     class="tab"> 11/14/2021                       Huda M.                       Diagnoses</pre>
                             </button>
                         </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                        <div id="collapse100" class="accordion-collapse collapse" aria-labelledby="heading100"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <strong></strong>
-                                <?php //if($_SESSION['log1']=='Therapist'){?>
+                                <?php if($_SESSION['log1']=='Therapist'){?>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#DxReport">
                                     DX Report <i class="fas fa-plus"></i></button>
-                                <?php// } ?>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -622,17 +627,17 @@ if ($con->query($sql) === TRUE) {
                                 <pre
                                     class="tab"><h6><strong> Suspected Area                            Other Disorder </strong></h6></pre>
                                 <h7>
-                                    <pre class="tab"> <?php echo $_POST['disorder'] ?>                                None </pre>
+                                    <pre class="tab"> <?php echo $newvalues ?>                     <?php echo $disorder ?>   </pre>
                                 </h7>
                                 <pre
                                     class="tab"><h6><strong> Type of Dx (Reccomendation)                                </strong></h6></pre>
-                                <pre class="tab"><h7> Fluency/Voice/Articulation(60 minutes)      </h7></pre>
-                                <?php //if($_SESSION['log1']=='Therapist'){?>
+                                <pre class="tab"><h7> <?php echo $Rec ?>      </h7></pre>
+                                <?php if($_SESSION['log1']=='Therapist'){?>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#ConsultReport"> Edit Consult Report</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#PsychReport"> Psych Report <i class="fas fa-plus"></i></button>
-                                    <?php //} ?>
+                                    <?php } ?>
                             </div>
                         </div>
                     </div>
