@@ -31,11 +31,22 @@ $row = mysqli_fetch_array($result);
 <?php
 // Insert Consult Report to DB
     if(isset($_POST["Consultbutton"])){
+        $Suspected="";$disorder="";$Rec="";
+        
         $Suspected= implode(",",$_POST["Suspected"]);
+        $_SESSION['Suspected']=$Suspected;
+
+        
         $disorder=implode(",",$_POST["disorder"]);
+        $_SESSION['disorder']=$disorder;
+
+        
         $Rec=implode(",",$_POST["Rec"]);
+        $_SESSION['Rec']=$Rec;
+
         $newvalues= $Suspected.",".$disorder.",".$Rec;
         $file_num = $_GET['id'];
+
         $therapist='therapist1';
         $Type='Consult';
         $checkEntries = mysqli_query($con,"SELECT * FROM reports WHERE File_Number='$file_num' AND Type='$Type' ");
@@ -43,7 +54,7 @@ $row = mysqli_fetch_array($result);
             $res = mysqli_query($con, "INSERT INTO reports (File_Number, Report_Recommandation, therapist_name, Type)
             VALUES ('$file_num','$newvalues','$therapist','$Type')");
             echo ' <script> alert("Report Saved Sucesssfully"); </script>';
-            list($Report_Recommandation) = mysqli_fetch_array($res);
+            //list($Report_Recommandation) = mysqli_fetch_array($res);
         }elseif(mysqli_num_rows($checkEntries) != 0){
           mysqli_query($con,"UPDATE reports SET Report_Recommandation='".$newvalues."' WHERE File_Number='$file_num' AND Type='$Type' ");
           
@@ -88,7 +99,7 @@ $tmpName  = $_FILES['userfile']['tmp_name'];
 $fileSize = $_FILES['userfile']['size'];
 $fileType = $_FILES['userfile']['type'];
 $file_num = $_GET['id'];
-$uploaded_date=date('Y-m-d H:i:s');
+$uploaded_date=$_POST['date'];
 $fp      = fopen($tmpName, 'r');
 $content = fread($fp, filesize($tmpName));
 $content = addslashes($content);
@@ -97,12 +108,12 @@ fclose($fp);
 $fileName = addslashes($fileName);
 $query= mysqli_query($con,"INSERT INTO upload (name, size, type, content, uploaded_date,file_number) ".
 "VALUES ('$fileName', '$fileSize', '$fileType', '$content','$uploaded_date','$file_num')");
-
+if ($query == 1) {
 echo "<br>File $fileName uploaded<br>";
 echo ' <script> alert("File $fileName uploaded"); </script>';
 
 }
-
+}
 // update record
 if (isset($_POST['save'])) {
     $file_num = $_GET['id'];
@@ -305,7 +316,7 @@ if ($con->query($sql) === TRUE) {
                         <br>
                         <h6>Reccomendation</h6>
                         <select name="Rec[]" class="form-select">
-                            <option value="<?php echo $Rec;?>" hidden><?php echo $Rec;?></option>
+                            <option value="<?php echo $_SESSION["Rec"];?>" hidden><?php echo $_SESSION["Rec"];?></option>
                             <option id="ABA" value="ABA">ABA</option>
                             <option id="EI DX" value="EI DX Early Intervention - 180 mins">EI DX Early Intervention - 180 mins </option>
                             <option id="English DX" value="English DX (90 mins each session) / Bilingual (2 hours + 1 hour)">English DX (90 mins each session) / Bilingual (2 hours + 1 hour) </option>
@@ -556,13 +567,13 @@ if ($con->query($sql) === TRUE) {
                     <pre class="tab"><strong>    Date                    Therapist                 Visit</strong></pre>
                     
                     <!-- START OF ACCORDION ITEM -->
-                        <?php  
+                    <div class="accordion-item">
+                    <?php  
                             $i=0;
                             $result = mysqli_query($con,"SELECT * FROM appointment WHERE file_number ='{$_GET['id']}'");
                             while($row = mysqli_fetch_array($result)){ 
                                 $i=$i+1; 
-                        ?> 
-                    <div class="accordion-item">
+                        ?>
                         <h2 class="accordion-header" id="heading<?php echo "$i" ?>">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapse<?php echo "$i"?>" aria-expanded="false" aria-controls="collapse<?php echo "$i"?>">
@@ -570,77 +581,51 @@ if ($con->query($sql) === TRUE) {
                                     class="tab"> <?php echo $row['Appointment_Date'];?>                       <?php print $row['Therapist_Name'];?>                       <?php print $row['type'];?></pre>
                             </button>
                         </h2>
+
                         <div id="collapse<?php echo "$i"?>" class="accordion-collapse collapse" aria-labelledby="heading<?php echo "$i"?>"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <strong></strong>
+                                        <?php
+                                        $uploaded_date=$row['Appointment_Date'];
+                                        ?>
                                 <?php if($_SESSION['log1']=='Therapist'){?>
+                                <?php if($row['type']=='TX'){?>
                                 <form  method="post" enctype="multipart/form-data">
+                                    <input name="date" type="hidden" value="<?php echo $uploaded_date; ?>"/>
                                     <input name="userfile" type="file" id="actual-btn" onchange="this.form.submit()" hidden/>
                                     <label  for="actual-btn" class="btn btn-primary">Upload Report <i class="fa fa-upload"></i></label>
                                     <!-- <input name="upload" type="submit" class="btn btn-primary" id="upload" value=" Upload "> -->
-                                    <?php
-                                        $uploaded_date=$row['Appointment_Date'];
-                                        ?>
                                         <button class="btn btn-primary"><a id=link  href="download.php?id=<?=$_GET['id']?>&date=<?=$uploaded_date;?>">Download</a></button>                                       
-                                        
+                                  <?php } ?>      
                                  </form>
-                                 <?php }?>
-                            </div>
-                        </div>
-                        <?php } ?>
-                    </div>
-                    
-                    <!-- ###################################################### -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="100">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse100" aria-expanded="false" aria-controls="collapse100">
-                                <pre
-                                    class="tab"> 11/14/2021                       Huda M.                       Diagnoses</pre>
-                            </button>
-                        </h2>
-                        <div id="collapse100" class="accordion-collapse collapse" aria-labelledby="heading100"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <strong></strong>
-                                <?php if($_SESSION['log1']=='Therapist'){?>
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                 <?php if($row['type']=='DX'){?>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#DxReport">
                                     DX Report <i class="fas fa-plus"></i></button>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                <pre
-                                    class="tab"> 11/14/2021                       Huda M.                       Consultaion</pre>
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <pre
+                                 <?php } ?>
+                                
+                                 <?php if($row['type']=='Consult'){?>
+                                    <pre
                                     class="tab"><h6><strong> Suspected Area                            Other Disorder </strong></h6></pre>
                                 <h7>
-                                    <pre class="tab"> <?php echo $newvalues ?>                     <?php echo $disorder ?>   </pre>
+                                    <pre class="tab"> <?php echo $_SESSION["Suspected"]; ?>                     <?php echo $_SESSION["disorder"]; ?>   </pre>
                                 </h7>
                                 <pre
                                     class="tab"><h6><strong> Type of Dx (Reccomendation)                                </strong></h6></pre>
-                                <pre class="tab"><h7> <?php echo $Rec ?>      </h7></pre>
-                                <?php if($_SESSION['log1']=='Therapist'){?>
+                                <pre class="tab"><h7> <?php echo $_SESSION["Rec"]; ?>      </h7></pre>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#ConsultReport"> Edit Consult Report</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#PsychReport"> Psych Report <i class="fas fa-plus"></i></button>
                                     <?php } ?>
+
+                            <?php }?>
                             </div>
                         </div>
+                        <?php } ?>
                     </div>
+                    <!-- ###################################################### -->
                 </div>
 
 
