@@ -109,7 +109,7 @@ $fileName = addslashes($fileName);
 $query= mysqli_query($con,"INSERT INTO upload (name, size, type, content, uploaded_date,file_number) ".
 "VALUES ('$fileName', '$fileSize', '$fileType', '$content','$uploaded_date','$file_num')");
 if ($query == 1) {
-echo "<br>File $fileName uploaded<br>";
+//echo "<br>File $fileName uploaded<br>";
 echo ' <script> alert("File $fileName uploaded"); </script>';
 
 }
