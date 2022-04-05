@@ -54,43 +54,13 @@ if ($res == 1) {
           </script>
           ';
   }
-}     
-
-// if (isset($_POST['Appointment'])) {
-// $Patient = $_POST['patient'];
-// $Therapist = $_POST['therapist'];
-// $Date = $_POST['date'];
-// $Time = $_POST['time'];
-// $Type = $_POST['type'];
-// $Payment_Status = 'unpaid';
-// $file_num = '111';
-// $emp_id = '102';
-// $res;
-// //print_r( $_POST['time']);
-// $res = mysqli_query($con, "INSERT INTO appointment (Therapist_Name , Payment_Status, Appointment_Time, Appointment_Date, file_number,employee_id,Type)
-// VALUES ('$Therapist','$Payment_Status','$Time','$Date','$file_num','$emp_id','$Type')");
-// if ($res == 1) {
-//   echo  
-//   '   
-//       <script>
-//       alert("Appointment Booked Sucesssfully");
-//       </script>
-//       ';
-
-//   } else {
-//       echo '
-//           <script>
-//           alert("Insertion Unuscesssful");
-//           </script>
-//           ';
-//   }
-// }     
+}         
 ?>
 
 <?php
 
 // output the available appointments
-if (isset($_POST['B'])) { 
+if (isset($_POST['b'])) { 
 $Date = $_POST['date'];
 $emp_id = '103';
 $records = mysqli_query($con,"SELECT * from appointment where Appointment_date = '$Date' AND employee_id = '$emp_id'");
@@ -102,32 +72,34 @@ $records = mysqli_query($con,"SELECT * from appointment where Appointment_date =
 }
 
 // insert appoitnment into db
-if (isset($_POST['ok'])) {
+if (isset($_POST['b'])) {
 $Patient = $_POST['patient'];
 $Therapist =$_POST['therapist'];
 $Date = $_POST['date'];
 $Time = $_POST['time'];
 $Type = $_POST['type'];
+// is there a better way to fetch the id???
+$result = mysqli_query($con,"SELECT * FROM employee WHERE name = '$Therapist' ");
+$rows=mysqli_fetch_array($result);
+$empid=$rows['Employee_ID']; 
 $Payment_Status = 'unpaid';
-//$file_num = '111';
-$emp_id = '103';
-
-// // // checks if appointment is available or not 
-// $stmt = $con->prepare("SELECT * from appointment where Appointment_date = '$Date' AND employee_id = '$emp_id' AND  Appointment_Time = '$Time'");
-// //$stmt->bind_param($Date, $emp_id,$Time);// takes the input date and sends it to the database
-// if($stmt->execute()){
-//    $result = $stmt->get_result();
-//    if($result->num_rows>0){
-//        echo  
-//        ' <script> alert("Already Booked"); </script>';
-//        //$msg = "<div class='alert alert-danger'></div>";
-//    }else{
        $res = mysqli_query($con, "INSERT INTO appointment (Therapist_Name , Payment_Status, Appointment_Time, Appointment_Date, file_number,employee_id)
-       VALUES ('$Therapist','$Payment_Status','$Time','$Date','$Patient','$emp_id')");
+       VALUES ('$Therapist','$Payment_Status','$Time','$Date','$Patient','$empid')");
        unset($timeslots[array_search($Time,$timeslots)]);
    }
-//}
-//}
+?>
+
+<?php
+if (isset($_POST['confirm'])) {
+    $res = mysqli_query($con, "UPDATE appointment SET status='Confirmed' WHERE appointment_ID ='{$_POST['id']}'");
+}
+if (isset($_POST['cancel'])) {
+    $res = mysqli_query($con, "UPDATE appointment SET status='Canceled' WHERE appointment_ID ='{$_POST['id']}'");
+}
+if (isset($_POST['no_show'])) {
+    $res = mysqli_query($con, "UPDATE appointment SET status='No_Show' WHERE appointment_ID ='{$_POST['id']}'");
+}
+
 ?>
 
     <header class="header">
@@ -187,18 +159,22 @@ $emp_id = '103';
 
             <div class="appt-widget">
                 <div class="d-flex flex-row">
-                <?php //total appointment
-                    $result = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE()");
-                    $rows=mysqli_num_rows ( $result );    // do an if statment instead?
-                 ?>
-                 <?php
-                    $newresult = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE() and status='Canceled'");
-                    $Crows=mysqli_num_rows ( $newresult );     
-                 ?>
-                   <?php
-                    $newresult = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE() and status='No_Show'");
-                    $Nrows=mysqli_num_rows ( $newresult );     
-                 ?>
+                <?php if($_SESSION['log1']=='Therapist'){                                 
+                            $result = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE() AND Employee_id = '{$_SESSION['id']}' ");
+                            $rows=mysqli_num_rows ( $result ); 
+                            $Cresult = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE() and status='Canceled' AND Employee_id = '{$_SESSION['id']}'");
+                            $Crows=mysqli_num_rows ( $Cresult ); 
+                            $Nresult = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE() and status='No_Show' AND Employee_id = '{$_SESSION['id']}'");
+                            $Nrows=mysqli_num_rows ( $Nresult ); }   
+                            elseif($_SESSION['log1']=='Admin'){
+                            $result = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE()");
+                            $rows=mysqli_num_rows ( $result );
+                            $Cresult = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE() and status='Canceled'");
+                            $Crows=mysqli_num_rows ( $Cresult );
+                            $Nresult = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE() and status='No_Show'");
+                            $Nrows=mysqli_num_rows ( $Nresult ); 
+                        }
+                             ?> 
                     <p class="item-widget">Total Appointments:<?= $rows ?></p>
                     <p class="item-widget">Total Cancelled: <?= $Crows ?></p>
                     <p class="item-widget">Total No-shows: <?= $Nrows ?></p>
@@ -209,7 +185,7 @@ $emp_id = '103';
                 <div>
                     <h2>Today's Appointments</h2>
                 </div>
-                <!-- <?php //if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?> -->
+                 <?php if($_SESSION['log1']=='Admin' || $_SESSION['log1']=='FDWorker'){?>
                 <div>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newAppt">New
                         Appointment <i class="fa fa-plus"></i></button>
@@ -218,7 +194,7 @@ $emp_id = '103';
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newIntake">New
                         Intake <i class="fa fa-plus base"></i></button>
                 </div>
-                <!-- <?php //} ?> -->
+                 <?php } ?> 
             </div>
 
 
@@ -233,35 +209,42 @@ $emp_id = '103';
                                         class="fas fa-close fa-2x"></i></button>
                             </div>
                             <div class="modal-body">
-                                <form class="popupwindow d-flex flex-column" method="post">
+                                <form class="popupwindow d-flex flex-column" method="post" id="myform">
                                     
                                     <!-- Patient ID: Dropdown menu -->
-                                    <button name="patient" type="button" class="form-select" id="test1" data-bs-toggle="dropdown"
+                                   <!--  <button name="patient" type="button" class="form-select inputb" id="test1" data-bs-toggle="dropdown"
                                         aria-expanded="false">Patient</button>
                                     <div class="dropdown-menu pt-0 mx-0 rounded-3 shadow overflow-hidden"
                                         aria-labelledby="test1" style="width: 280px;">
-                                        <!-- <form class="p-2 mb-2 bg-light border-bottom" method="post"> -->
                                             <input type="search" class="form-control" autocomplete="false"
                                                 placeholder="Type to filter...">
-                                        <!-- </form> -->
                                         <ul class="list-unstyled mb-0">
                                         <?php
-                                         $records = mysqli_query($con,"SELECT Name, File_Number FROM patient");
-                                         while ($row = mysqli_fetch_array($records)){                                           
-                                                echo "<button class=\"dropdown-item\" type=\"button\">".$row['Name']."</button>";
-                                        //    // SAVE SELECTED NAME and value 
-                                        // ?>
-                                            <!-- <li><button class="dropdown-item" type="button">"<?php //$row['Name']?>"</button></li> -->
-                                            <?php
-                                            }
-                                            ?>
+                                       //  $records = mysqli_query($con,"SELECT Name, File_Number FROM patient");
+                                       //  while ($row = mysqli_fetch_array($records)){                                           
+                                                //echo "<button class=\"dropdown-item\" type=\"button\" value=\"". $row['Name'] ."\">".$row['Name']."</button>";
+                                            //   echo "<li><button name=\"patient\" class=\"dropdown-item\"  value=\"". $row['Name'] ."\"></button></li>";
+                                         ?>
+                                             <li><button class="dropdown-item" type="button">"<?php //$row['Name']?>"</button></li> 
+                                            <?php// } ?>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                     <!-- End of Patient ID: Dropdown menu -->
-                                    <br>
+                                  
                                     <!-- <input class="form-control" type="text" placeholder="Patient"> -->
 
-                                    <select name="therapist" class="form-select" aria-label="Default select example">
+                                    <select name="patient" class="form-select inputb" aria-label="Default select example">
+                                    <option value="" disabled selected hidden>Choose Patient</option>
+                                    <?php
+                                        $records = mysqli_query($con,"SELECT Name, File_Number FROM patient");
+                                        while ($row = mysqli_fetch_array($records)){
+                                            echo "<option value=\"". $row['File_Number'] ."\">".$row['Name']."-".$row['File_Number'] ."</option>";
+                                        }
+                                    ?>
+                                    </select>
+
+                                    
+                                    <select name="therapist" class="form-select inputb" aria-label="Default select example">
                                     <option value="" disabled selected hidden>Choose Therapist</option>
                                     <?php
                                         $records = mysqli_query($con,"SELECT Name FROM employee WHERE Role = 'Therapist' ");
@@ -270,40 +253,29 @@ $emp_id = '103';
                                         }
                                     ?>
                                     </select>
-                                    <br>
-                                    <select name="type" class="form-select" aria-label="Default select example">
+                                    
+                                    <select name="type" class="form-select inputb" aria-label="Default select example">
                                         <option value="" disabled selected hidden>Choose Appointment Type</option>
                                         <option value="DX">DX (Diagnosis Session)</option>
                                         <option value="TX">TX (Treatment Session)</option>
                                     </select>
-                                    <br>
-                                    <br>
-
-                                    <!-- <select class="form-select" aria-label="Default select example"
-                                        aria-placeholder="Available Slots">
-                                        <option value="" disabled selected>Available Slots</option>
-                                        <option value="1">Monday, 2 Feb, 2-3 pm</option>
-                                        <option value="1">Monday, 2 Feb, 3-4 pm</option>
-                                        <option value="1">Monday, 2 Feb, 4-5 pm</option>
-                                    </select>  -->  
-                                    <!-- <label>Choose Appointment Date -->
-                                    <input type="date" name="date"/><br><br>
-                                    <div class="modal-footer">
-                                         <button name="ok" type="submit" class="btn btn-primary flex-grow-1">Save</button>
-                                    </div>
+                                    <input type="date" name="date" required="required" class="date inputb"><br><br>
                                         <!-- FIX SUBMIT ISSUE -->
-                                    </form>
-                                    <form method="post">
-                                    <select name="time" class="form-select" aria-label="Default select example">
+                                    <select name="time" class="form-select inputb" aria-label="Default select example">
                                             <option value="" disabled selected hidden>Choose Appointment Time</option>
                                                 <?php
-                                                       foreach($timeslots as $ts){ 
-                                                           echo "<option value=\"". $ts ."\">". $ts ."</option>"; 
-                                                       }?>
+                                                      foreach($timeslots as $ts){ 
+                                                        echo "<option value=\"". $ts ."\">". $ts ."</option>"; 
+                                                        }?>
                                     </select> 
+
+                                    <div class="modal-footer">
+                                         <button id="ok" name="b" type="submit" class="btn btn-primary flex-grow-1">Save</button>
+                                         <!-- <button class="btn btn-primary custom-button red-btn" id="ok">
+                                                                     Sign Up</button> -->
+                                    </div>
                                     </form>
-                                    <br>
-                                  
+                                    
                             </div>
                         </div>
                     </div>
@@ -338,6 +310,7 @@ $emp_id = '103';
                                         }
                                     ?>
                                     </select>
+                                    <input type="date" name="date"  class="date inputb"/>
                                     <!-- <input class="form-control" type="datetime-local" placeholder="Date&Time"> -->
                                     <select name="time" class="form-select" aria-label="Default select example">
                                             <option value="" disabled selected hidden>Choose Appointment Time</option>
@@ -346,17 +319,13 @@ $emp_id = '103';
                                                             echo "<option value=\"". $ts ."\">". $ts ."</option>"; 
                                                         }?>
                                     </select> 
-                                    <input type="date" class="date" name="date"/>
                                     <!-- Modal footer -->
                                     <div class="modal-footer d-flex">
                                     <button name="Intake" type="submit" class="flex-grow-1 btn btn-primary"
                                                 >Save</button>
                                     </div>
                                 </form>
-
-                            </div>
-
-                          
+                            </div>   
                         </div>
                     </div>
                 </div>
@@ -384,30 +353,34 @@ $emp_id = '103';
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        while ($row = mysqli_fetch_array($result)) {
-                        ?>
+                        <?php if($_SESSION['log1']=='Therapist'){                                 
+                            $result = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE() AND Employee_id = '{$_SESSION['id']}' ");}
+                             elseif($_SESSION['log1']=='Admin'){
+                            $result = mysqli_query($con,"SELECT * FROM appointment WHERE Appointment_Date = CURDATE()");
+                             }
+                             while ($row = mysqli_fetch_array($result)){?>
                         <tr>
                             <td><?= $row['file_number'] ?></td>
                             <td><?= $row['Therapist_Name'] ?></td>
                             <td>DX</td>
                             <td><?= $row['Appointment_Time'] ?></td>
                             <td><?= $row['status'] ?></td>
-                            <td><button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1"
+                            <?php if($_SESSION['log1']=='Admin'){?>
+                            <td><form name="form" method="post">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton1"
                                     data-bs-toggle="dropdown" aria-expanded="false">Action</button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><button name="confirm" class="dropdown-item" type="button">Confirm</button></li>
-                                    <li><button name="edit" class="dropdown-item" type="button">Edit</button></li>
-                                    <li><button name="no_show" class="dropdown-item" type="button">No-show</button></li>
-                                    <li><button name="cancel" class="dropdown-item" type="button">Cancel</button></li>
+                                    <input name="id" type="hidden" value="<?php echo $row['Appointment_ID']; ?>"/>
+                                    <li><button name="confirm" class="dropdown-item" type="submit">Confirm</button></li>
+                                    <li><button name="edit" class="dropdown-item" type="submit">Edit</button></li>
+                                    <li><button name="no_show" class="dropdown-item" type="submit">No-show</button></li>
+                                    <li><button name="cancel" class="dropdown-item" type="submit">Cancel</button></li>
                                     <!-- PUT FUNCTIONS IN BUTTONS -->
                                 </ul>
-                            
+                        </form>
                             </td>
+                            <?php } } ?>
                         </tr>
-                        <?php
-                        }
-                        ?>
                     </tbody>
                 </table>
             </div>
@@ -419,6 +392,17 @@ $emp_id = '103';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
+<!-- 
+<script>
+$(document).ready(function(){
+    $('#ok').click(function(){
+        $.post($(this).attr("action"), $("#myform").serialize(),function(response){
+            alert(response) // you can get the success response return by php after submission success
+        });
+    )};
+});
+</script> -->
+
 </body>
 
 </html>

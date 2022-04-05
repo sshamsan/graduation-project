@@ -60,17 +60,7 @@ $res;
 $res = mysqli_query($con, "INSERT INTO employee (Name , Role , Specialization,password,Hired_date,Department_ID,employee_email)
 VALUES ('$Name','$role','$specilization','$encpt_password','$Hired_Date','$Dep_ID','$Emp_email') ");
 if ($res == 1) {
-    
-    // $posted_data = var_export($password,true);
-    // $message = '
-    // <h4> Your password is  </h4>
-    // <p>plah plah plah</p>
-    // <pre>
-    // '.$posted_data.'
-    // </pre>
-    // ';
-    // mail('lubnasah@gmail.com', 'Export of the Posted Data', $message);
-    echo "Your Password Is : ".$password;
+    //echo "Your Password Is : ".$password;
   echo  
   '   
       <script>
@@ -166,7 +156,7 @@ if(isset($_POST["remove"])){
                     <form class="popupwindow"method="post">
                         <input name="name" class ="inputb" type="text" placeholder="   Name">
                         <input   name="Emp_email" class ="inputb" type="text" placeholder="   Email">
-                        <select class="form-select" aria-label="Default select example">
+                        <select name="role" class="form-select" aria-label="Default select example">
                             <option value="" disabled selected hidden>Employee role</option>
                             <option value="Admin">Admin</option>
                             <option value="Front-desk Worker">Front-desk Worker</option>
