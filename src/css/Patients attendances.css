@@ -80,11 +80,21 @@
   justify-content: center;
   align-items: center;
   }
+
+
+
   /*--------------------------------change this in php file-----------------------------*/
   .btn-primary{
-    width: 180px;
+    width: 170px;
   }
 
-  .select-focus{
+.select-focus{
     width: 280px;
   }
+.inputb{
+    width: 280px;
+    height: 50px;
+}
+/*--------------------------------------------------------------------------------------*/
+  
+  
